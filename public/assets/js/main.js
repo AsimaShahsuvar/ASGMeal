@@ -6,15 +6,16 @@ $("#document").ready(function () {
     var day = d.getDate();
     var minute = d.getMinutes();
     var hour = d.getHours();
-    var c = new Date(year, month-1, day, hour, minute);
+    var c = new Date(year+1, month-1, day, hour, minute);
 
 
 
-    $("#fromSt").val(new Date().toDateInputValue());
+    $("#fromSt").val(c.toDateInputValue());
     var today = new Date();
     console.log(today.getHours()+":"+today.getMinutes())
     todayHour=today.getHours();
     todayMinute=today.getMinutes();
+    getFlight();
 })
 function prevBtn(p) {
     let date1 = document.getElementById('fromSt').value;
