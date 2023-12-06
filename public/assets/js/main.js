@@ -55,7 +55,7 @@ function getFlight() {
     swal({
         title: "Please wait!",
         //text: "Page is loading",
-        imageUrl: 'public/assets/loading.gif',
+        imageUrl: '/assets/loading.gif',
         showConfirmButton: false
     });
     let eq_start,eq_end;
@@ -92,10 +92,10 @@ function getFlight() {
 
                 $.each(item.data, function (i, item2) {
                    if(item2.status === 1){
-                       status="public/assets/takeoff.png"
+                       status="/assets/takeoff.png"
                        color="#9ccd7e"
                    }else{
-                       status="public/assets/landing.png";
+                       status="/assets/landing.png";
                        color="#c0d0ff";
                    }
                     //console.log(item2.scT_OFB);
@@ -132,14 +132,14 @@ function getFlight() {
 
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");
                     $(`#${'a'+item.row + '_' + t}`).addClass("tool").attr("colspan", diffCols).css({"background": `${color}` }).html(`<span class="custom info">
-     <img src="public/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
+     <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
    <p> Type: ${item2.aC_type}</p>
 
   <p>  Route: ${item2.route}</p>
   <p>  Id: ${item2.id}</p> 
   <p> Block Off : ${item2.scT_OFB.substring(0,5)}</p>
    <p> Block on: ${item2.scT_ONB.substring(0,5)}</p>
-  </span><div style="margin-left: 0"><img style="width: 17px;margin-right: 5px;" src="public/assets/warning.png"></div><div><img style="width: 17px" src="${status}"> ${item2.flt} ${item2.route} </div>`);
+  </span><div style="margin-left: 0"><img style="width: 17px;margin-right: 5px;" src="/assets/warning.png"></div><div><img style="width: 17px" src="${status}"> ${item2.flt} ${item2.route} </div>`);
 
                     // }
                     // $(`#${item.park+(eq_start+30)}`).html(`<div> <img style="width: 17px" src="images/landing.png">${item2.FlightLand} </div>`)
