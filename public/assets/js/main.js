@@ -15,7 +15,7 @@ $("#document").ready(function () {
     console.log(today.getHours()+":"+today.getMinutes())
     todayHour=today.getHours();
     todayMinute=today.getMinutes();
-    getFlight();
+
 })
 function prevBtn(p) {
     let date1 = document.getElementById('fromSt').value;

@@ -9,7 +9,7 @@
           <div class="col-md-3" style="display: inherit;column-gap: 7px;">
 
             <div class="form-group">
-              <input type="date" class="form-control" id="fromSt">
+              <input type="date" class="form-control" id="fromSt" onchange="getFlight();">
             </div>
             <button class="btn btn-primary" onclick="prevBtn('-')">Prev</button>
             <button class="btn btn-primary" onclick="prevBtn('+')">Next</button>
