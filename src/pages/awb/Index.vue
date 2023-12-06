@@ -186,11 +186,9 @@
 export default {
   mounted() {
     let Script = document.createElement("script");
-    Script.setAttribute("src", "public/assets/js/main.js");
+    Script.setAttribute("src", "assets/js/main.js");
     document.head.appendChild(Script);
   }
 };
 </script>
-<style lang="scss">
-//@import 'public/assets/css/realtime-flight.css';
-</style>
+
