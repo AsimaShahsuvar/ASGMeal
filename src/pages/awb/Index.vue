@@ -186,7 +186,7 @@
 export default {
   mounted() {
     let Script = document.createElement("script");
-    Script.setAttribute("src", "assets/js/main.js");
+    Script.setAttribute("src", "/assets/js/main.js");
     document.head.appendChild(Script);
   }
 };
