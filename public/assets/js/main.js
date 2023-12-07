@@ -95,7 +95,7 @@ function getFlight() {
         ),
         success: function (result) {
             //console.log(result);
-            let  status,status2;
+            let  status,status2,route;
             let color="#9ccd7e"
             $("#flight tbody tr").remove();
             $.each(result, function (i, item) {
@@ -115,14 +115,17 @@ function getFlight() {
                        status="/assets/takeoff.png"
                        color="#9ccd7e"
                        status2="";
+                       route = item2.route
                    }else{
                        status="/assets/landing.png";
                        color="#c0d0ff";
                        status2="";
+                       route = item2.route
                    } if(item2.status === 2){
                         status="/assets/landing.png"
                         status2 = `<img width="17px"  src="/assets/takeoff.png">`
                         color="#a5f2ff"
+                      route = "";
                     }
                     //console.log(item2.scT_OFB);
                     //if(item2.scT_OFB ==!"" && item2.scT_ONB==!"") {
@@ -146,8 +149,8 @@ function getFlight() {
                     //console.log("end1 "+end1,"end2 "+end2)
 
 
-                    let diffCols = eq_end - eq_start;
-                    for (t = eq_start; t <= eq_end; t++) {
+                    let diffCols = eq_end - eq_start+1;
+                    for (t = eq_start; t < eq_end; t++) {
 
                         // $(`#${item.park +'_' + t}`).css({"background":"#9eef72","border": "2px dotted green"})
 
@@ -165,7 +168,7 @@ function getFlight() {
   <p>  Id: ${item2.id}</p>
   <p> Block Off : ${item2.scT_OFB.substring(0,5)}</p>
    <p> Block on: ${item2.scT_ONB.substring(0,5)}</p>
-  </span><div style="margin-left: 0"></div><div><img style="width: 17px" src="${status}"> ${item2.flt} ${status2} ${item2.route} </div>`);
+  </span><div style="margin-left: 0"></div><div><img style="width: 17px" src="${status}"> ${item2.flt} ${status2} ${route} </div>`);
 
                     // }
                     // $(`#${item.park+(eq_start+30)}`).html(`<div> <img style="width: 17px" src="images/landing.png">${item2.FlightLand} </div>`)

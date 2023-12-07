@@ -67,6 +67,9 @@ tbody > tr:hover {
     font-weight: 900;
     color: #003a70;
 }
+.tool {
+    font-size: 12px;
+}
 tbody > tr > .tool:hover {
     -webkit-transform: translateY(0) scale(0.99);
     color: white;
