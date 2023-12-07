@@ -14,6 +14,34 @@
             <button class="btn btn-primary" onclick="prevBtn('-')">Prev</button>
             <button class="btn btn-primary" onclick="prevBtn('+')">Next</button>
           </div>
+          <div class="col-md-2">
+
+            <div class="terminal">
+              <label>
+                <input type="checkbox" value="0" name="options[]" id="dep"  checked="true" onchange="getFlight();"><span class="label-text">Arrival</span>
+              </label>
+              <label>
+                <input type="checkbox" value="1" name="options[]"  id="arr" checked="true" onchange="getFlight();"><span class="label-text">DEP</span>
+              </label>
+              <label>
+                <input type="checkbox" value="2" name="options[]"  id="tra" checked="true" onchange="getFlight();"><span class="label-text">Tranzit</span>
+              </label>
+
+            </div>
+            </div>
+
+          <div class="col-md-2">
+            <div class="terminal">
+              <fieldset style="display: inline-block">
+
+                <input type="radio" name="action" id="t1" value="0" onchange="getFlight();" /> <label for="track"> UTC</label>
+                <input type="radio" name="action" id="t2" value="1" onchange="getFlight();" /> <label for="event"> Local</label>
+
+              </fieldset>
+
+            </div>
+          </div>
+
 <!--          <div class="col-md-1">-->
 <!--            <button class="btn btn-primary" onclick="getFlight();">Next</button>-->
 <!--          </div>-->
@@ -183,7 +211,10 @@
   </div>
 </template>
 <script>
+import Departure from "@/pages/flights/Departure.vue";
+
 export default {
+  components: {Departure},
   mounted() {
     let Script = document.createElement("script");
     Script.setAttribute("src", "/assets/js/main.js");

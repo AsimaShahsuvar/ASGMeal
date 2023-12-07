@@ -1,5 +1,5 @@
 .table_div {
-    height: 80vh;
+    height: 90vh;
     overflow: auto;
     background: white;
     box-shadow: 0 3px 20px 0px #607d8bdb;
@@ -63,10 +63,14 @@ tbody > tr:hover {
     color: white;
     /*box-shadow: 0px 0px 15px 1px #2f68f7;*/
 }
+.terminal {
+    font-weight: 900;
+    color: #003a70;
+}
 tbody > tr > .tool:hover {
     -webkit-transform: translateY(0) scale(0.99);
     color: white;
-    background:#9ccd7e!important;
+    background:#003a70ab!important;
     box-shadow: 0px 0px 15px 9px #a6aab3;
 }
 tbody > tr {
@@ -147,4 +151,30 @@ tbody > tr {
 }
 .tool div {
     display: inline-block;
+}
+label input[type="checkbox"]:checked + .label-text:before {
+    content: "";
+    color: #27ad23;
+    animation: tick 150ms ease-in;
+}
+
+label input[type="checkbox"] + .label-text:before {
+    content: "";
+    color: #dddfe6;
+    font-family: "fontAwesome";
+    line-height: 1;
+    width: 1em;
+    display: inline-block;
+    margin-right: 5px;
+}
+label input[type="checkbox"] {
+    display: none;
+}
+.terminal label {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+span.label-text {
+    font-weight: 900;
+    color: #003a70;
 }

@@ -9,7 +9,6 @@ $("#document").ready(function () {
     var c = new Date(year+1, month-1, day, hour, minute);
 
 
-
     $("#fromSt").val(c.toDateInputValue());
     var today = new Date();
     console.log(today.getHours()+":"+today.getMinutes())
@@ -50,14 +49,30 @@ Date.prototype.toDateInputValue = (function () {
     return local.toJSON().slice(0, 10);
 
 });
-
 function getFlight() {
+    let status1,status2,status3,islocal;
     swal({
         title: "Please wait!",
         //text: "Page is loading",
         imageUrl: '/assets/loading.gif',
         showConfirmButton: false
     });
+
+    console.log(islocal);
+    if ($('#t2').is(':checked')) {
+        islocal = true
+    }
+    else if ($('#t1').is(':checked')) {
+        islocal = false
+
+    }
+    console.log(islocal);
+    var checked = []
+    $("input[name='options[]']:checked").each(function ()
+    {
+        checked.push(parseInt($(this).val()));
+    });
+    console.log(checked);
     let eq_start,eq_end;
     // console.log(array.data)
     let flightsDiv = '';
@@ -66,16 +81,21 @@ function getFlight() {
     let date=$("#fromSt").val();
     $.ajax({
         url: 'https://apiazal.asg.az/api/flight/getflightlist',
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
-        data: {
+        contentType: "application/json",
 
-            st_from:date,
-            end_to: date
-        },
+        data: JSON.stringify(
+            {
+                "st_from": date,
+                "end_to": date,
+                "status": checked,
+                "isLocal": islocal
+            }
+        ),
         success: function (result) {
             //console.log(result);
-            let  status;
+            let  status,status2;
             let color="#9ccd7e"
             $("#flight tbody tr").remove();
             $.each(result, function (i, item) {
@@ -94,10 +114,16 @@ function getFlight() {
                    if(item2.status === 1){
                        status="/assets/takeoff.png"
                        color="#9ccd7e"
+                       status2="";
                    }else{
                        status="/assets/landing.png";
                        color="#c0d0ff";
-                   }
+                       status2="";
+                   } if(item2.status === 2){
+                        status="/assets/landing.png"
+                        status2 = `<img width="17px"  src="/assets/takeoff.png">`
+                        color="#a5f2ff"
+                    }
                     //console.log(item2.scT_OFB);
                     //if(item2.scT_OFB ==!"" && item2.scT_ONB==!"") {
                     let start = item2.scT_OFB;
@@ -136,10 +162,10 @@ function getFlight() {
    <p> Type: ${item2.aC_type}</p>
 
   <p>  Route: ${item2.route}</p>
-  <p>  Id: ${item2.id}</p> 
+  <p>  Id: ${item2.id}</p>
   <p> Block Off : ${item2.scT_OFB.substring(0,5)}</p>
    <p> Block on: ${item2.scT_ONB.substring(0,5)}</p>
-  </span><div style="margin-left: 0"><img style="width: 17px;margin-right: 5px;" src="/assets/warning.png"></div><div><img style="width: 17px" src="${status}"> ${item2.flt} ${item2.route} </div>`);
+  </span><div style="margin-left: 0"></div><div><img style="width: 17px" src="${status}"> ${item2.flt} ${status2} ${item2.route} </div>`);
 
                     // }
                     // $(`#${item.park+(eq_start+30)}`).html(`<div> <img style="width: 17px" src="images/landing.png">${item2.FlightLand} </div>`)
@@ -152,8 +178,4 @@ function getFlight() {
             alert("error"); // Display error message
         }
     });
-
-
-
-
 }
