@@ -11,7 +11,7 @@ $("#document").ready(function () {
 
     $("#fromSt").val(c.toDateInputValue());
     var today = new Date();
-    console.log(today.getHours()+":"+today.getMinutes())
+    // console.log(today.getHours()+":"+today.getMinutes())
     todayHour=today.getHours();
     todayMinute=today.getMinutes();
 
@@ -49,7 +49,9 @@ Date.prototype.toDateInputValue = (function () {
     return local.toJSON().slice(0, 10);
 
 });
+
 function getFlight() {
+    var checked = []
     let status1,status2,status3,islocal;
     swal({
         title: "Please wait!",
@@ -66,13 +68,13 @@ function getFlight() {
         islocal = false
 
     }
-    console.log(islocal);
-    var checked = []
+    // console.log(islocal);
+
     $("input[name='options[]']:checked").each(function ()
     {
         checked.push(parseInt($(this).val()));
     });
-    console.log(checked);
+    // console.log(checked);
     let eq_start,eq_end;
     // console.log(array.data)
     let flightsDiv = '';
@@ -166,8 +168,8 @@ function getFlight() {
 
   <p>  Route: ${item2.route}</p>
   <p>  Id: ${item2.id}</p>
-  <p> Block Off : ${item2.scT_OFB.substring(0,5)}</p>
-   <p> Block on: ${item2.scT_ONB.substring(0,5)}</p>
+  <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
+   <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
   </span><div style="margin-left: 0"></div><div><img style="width: 17px" src="${status}"> ${item2.flt} ${status2} ${route} </div>`);
 
                     // }
@@ -181,4 +183,118 @@ function getFlight() {
             alert("error"); // Display error message
         }
     });
+}
+a=0;  let time1 ,time2;
+function thClick(e){
+
+    $(e).css("background-color","rgb(255, 0, 0)");
+
+    $(".allThClass th").each(function (){
+        if($(this).css("background-color")==="rgb(255, 0, 0)"){
+          a=a+1;
+            if(a===1){
+                time1=$(e).text();
+                console.log("test");
+            }
+            if(a===2){
+                time2=$(e).text();
+                 console.log("test2");
+                return false;
+            }
+        }
+        if(a>2){
+            $(".allThClass th").css("background-color","rgb(0 58 112)");
+            a=0;
+            time1="";
+            time2="";
+
+        }
+
+
+
+    })
+
+    console.log(a,time1,time2);
+}
+
+function downloadExcelFile() {
+    var checked = []
+    if (time1 != '' && time2 != '') {
+
+
+        // Your data to send to the API
+        const yourData = { /* Your data object */};
+        let status1, status2, status3, islocal;
+        // swal({
+        //     title: "Please wait!",
+        //     //text: "Page is loading",
+        //     imageUrl: '/assets/loading.gif',
+        //     showConfirmButton: false
+        // });
+
+        console.log(islocal);
+        if ($('#t2').is(':checked')) {
+            islocal = true
+        } else if ($('#t1').is(':checked')) {
+            islocal = false
+
+        }
+        // console.log(islocal);
+
+        $("input[name='options[]']:checked").each(function () {
+            checked.push(parseInt($(this).val()));
+        });
+        // console.log(checked);
+        let eq_start, eq_end;
+        // console.log(array.data)
+        let flightsDiv = '';
+        let letiv = '';
+        let td = '';
+        let date = $("#fromSt").val();
+
+        // API endpoint URL
+        const apiUrl = 'https://apiazal.asg.az/api/flight/exportexcellist';
+
+        // Your request payload
+        const requestData = {
+            "st_from": date + 'T' + time1,
+            "end_to": date + 'T' + time2,
+            "status": checked,
+            "isLocal": islocal
+        };
+
+        // Make a POST request to the API
+        fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                // Create a download link
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.setAttribute('download', 'example.xlsx');
+
+                // Append the link to the body
+                document.body.appendChild(link);
+
+                // Simulate a click on the link to trigger the download
+                link.click();
+
+                // Remove the link from the body
+                document.body.removeChild(link);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request. Please try again.');
+            });
+    }
 }
