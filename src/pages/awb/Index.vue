@@ -56,34 +56,7 @@
     <div class="table_div">
       <table class="table table-bordered animate__animated animate__fadeIn" id="flight">
         <thead>
-        <tr>
-          <th colspan="1" class="text-center sticky-col first-col">...</th>
-          <th colspan="60" class="text-center">01.01.2023 00:00</th>
-          <th colspan="60" class="text-center">01.01.2023 01:00</th>
-          <th colspan="60" class="text-center">01.01.2023 02:00</th>
-          <th colspan="60" class="text-center">01.01.2023 03:00</th>
-          <th colspan="60" class="text-center">01.01.2023 04:00</th>
-          <th colspan="60" class="text-center">01.01.2023 05:00</th>
-          <th colspan="60" class="text-center">01.01.2023 06:00</th>
-          <th colspan="60" class="text-center">01.01.2023 07:00</th>
-          <th colspan="60" class="text-center">01.01.2023 08:00</th>
-          <th colspan="60" class="text-center">01.01.2023 09:00</th>
-          <th colspan="60" class="text-center">01.01.2023 10:00</th>
-          <th colspan="60" class="text-center">01.01.2023 11:00</th>
-          <th colspan="60" class="text-center">01.01.2023 12:00</th>
-          <th colspan="60" class="text-center">01.01.2023 13:00</th>
-          <th colspan="60" class="text-center">01.01.2023 14:00</th>
-          <th colspan="60" class="text-center">01.01.2023 15:00</th>
-          <th colspan="60" class="text-center">01.01.2023 16:00</th>
-          <th colspan="60" class="text-center">01.01.2023 17:00</th>
-          <th colspan="60" class="text-center">01.01.2023 18:00</th>
-          <th colspan="60" class="text-center">01.01.2023 19:00</th>
-          <th colspan="60" class="text-center">01.01.2023 20:00</th>
-          <th colspan="60" class="text-center">01.01.2023 21:00</th>
-          <th colspan="60" class="text-center">01.01.2023 22:00</th>
-          <th colspan="60" class="text-center">01.01.2023 23:00</th>
 
-        </tr>
         <tr>
           <th colspan="1" class="sticky-col first-col">...</th>
           <th colspan="15">00:00</th>

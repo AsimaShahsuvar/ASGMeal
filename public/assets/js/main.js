@@ -96,7 +96,7 @@ function getFlight() {
         success: function (result) {
             //console.log(result);
             let  status,status2,route;
-            let color="#9ccd7e"
+            let color="#78e933c9"
             $("#flight tbody tr").remove();
             $.each(result, function (i, item) {
                 let td ='';
@@ -113,7 +113,7 @@ function getFlight() {
                 $.each(item.data, function (i, item2) {
                    if(item2.status === 1){
                        status="/assets/takeoff.png"
-                       color="#9ccd7e"
+                       color="#78e933c9"
                        status2="";
                        route = item2.route
                    }else{
