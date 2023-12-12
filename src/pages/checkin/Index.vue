@@ -17,9 +17,9 @@
           <div class="col-md-2">
 
             <div class="terminal">
-              <label>
-                <input type="checkbox" value="0" name="options[]" id="dep"  checked="true" onchange="getFlight();"><span class="label-text">Arrival</span>
-              </label>
+<!--              <label>-->
+<!--                <input type="checkbox" value="0" name="options[]" id="dep"  checked="true" onchange="getFlight();"><span class="label-text">Arrival</span>-->
+<!--              </label>-->
               <label>
                 <input type="checkbox" value="1" name="options[]"  id="arr" checked="true" onchange="getFlight();"><span class="label-text">DEP</span>
               </label>
@@ -28,7 +28,7 @@
               </label>
 
             </div>
-            </div>
+          </div>
 
           <div class="col-md-2">
             <div class="terminal">
@@ -45,6 +45,7 @@
           <div class="col-md-1">
             <button class="btn btn-primary "   onclick="downloadExcelFile();">Excel</button>
           </div>
+
 
         </div>
       </div>
@@ -191,7 +192,7 @@ export default {
   components: {Departure},
   mounted() {
     let Script = document.createElement("script");
-    Script.setAttribute("src", "/assets/js/main.js");
+    Script.setAttribute("src", "/assets/js/checkin.js");
     document.head.appendChild(Script);
   }
 };

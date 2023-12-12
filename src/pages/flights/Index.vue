@@ -271,7 +271,7 @@
 <!--      copiedPosition: [],-->
 <!--      isCopied: false,-->
 <!--      search: {-->
-<!--        uld: '',-->
+<!--        checkin: '',-->
 <!--        flightId: '',-->
 <!--        terminal: this.$store.getters['auth/GET_BUILDING'],-->
 <!--        arrivalStatus: true,-->

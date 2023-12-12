@@ -279,7 +279,7 @@
 
 <!--      filter: {-->
 <!--        destination: '',-->
-<!--        uld: '',-->
+<!--        checkin: '',-->
 <!--        selectedPalleteId: ''-->
 <!--      },-->
 <!--      link: {-->
@@ -323,10 +323,10 @@
 
 <!--    },-->
 <!--    async searchPaletteByUld() {-->
-<!--      if (this.filter.uld == '') {-->
+<!--      if (this.filter.checkin == '') {-->
 <!--        this.allPalette = this.defaultPalette-->
 <!--      } else {-->
-<!--        this.allPalette = this.allPalette.filter(x => x.uld === this.filter.uld)-->
+<!--        this.allPalette = this.allPalette.filter(x => x.checkin === this.filter.checkin)-->
 <!--      }-->
 
 

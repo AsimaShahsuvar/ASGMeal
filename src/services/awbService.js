@@ -1,6 +1,6 @@
 import api from './api'
 
-const ENDPOINT = '/awb'
+const ENDPOINT = '/realflight'
 export default {
 
     load(search, page = null, limit = null) {

@@ -8753,7 +8753,7 @@ var version = '4.4.2';
 
 /***/ "./node_modules/@fullcalendar/core/main.js":
 /*!*************************************************!*\
-  !*** ./node_modules/@fullcalendar/core/main.js ***!
+  !*** ./node_modules/@fullcalendar/core/realflight.js ***!
   \*************************************************/
 /***/ (function(__unused_webpack_module, exports) {
 
@@ -19185,7 +19185,7 @@ var main = (0,_fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__.createPlugin)({
 
 /***/ "./node_modules/@fullcalendar/daygrid/main.js":
 /*!****************************************************!*\
-  !*** ./node_modules/@fullcalendar/daygrid/main.js ***!
+  !*** ./node_modules/@fullcalendar/daygrid/realflight.js ***!
   \****************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -20863,7 +20863,7 @@ Docs & License: https://fullcalendar.io/
 
 /***/ "./node_modules/@fullcalendar/google-calendar/main.js":
 /*!************************************************************!*\
-  !*** ./node_modules/@fullcalendar/google-calendar/main.js ***!
+  !*** ./node_modules/@fullcalendar/google-calendar/realflight.js ***!
   \************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -21047,7 +21047,7 @@ Docs & License: https://fullcalendar.io/
 
 /***/ "./node_modules/@fullcalendar/interaction/main.js":
 /*!********************************************************!*\
-  !*** ./node_modules/@fullcalendar/interaction/main.js ***!
+  !*** ./node_modules/@fullcalendar/interaction/realflight.js ***!
   \********************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -23208,7 +23208,7 @@ Docs & License: https://fullcalendar.io/
 
 /***/ "./node_modules/@fullcalendar/list/main.js":
 /*!*************************************************!*\
-  !*** ./node_modules/@fullcalendar/list/main.js ***!
+  !*** ./node_modules/@fullcalendar/list/realflight.js ***!
   \*************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -23573,7 +23573,7 @@ Docs & License: https://fullcalendar.io/
 
 /***/ "./node_modules/@fullcalendar/timegrid/main.js":
 /*!*****************************************************!*\
-  !*** ./node_modules/@fullcalendar/timegrid/main.js ***!
+  !*** ./node_modules/@fullcalendar/timegrid/realflight.js ***!
   \*****************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -25060,12 +25060,12 @@ var __webpack_exports__ = {};
   \*************************************************************/
 // FullCalendar - Full-sized, drag & drop event calendar in JavaScript: https://fullcalendar.io/
 
-window.FullCalendar = __webpack_require__(/*! @fullcalendar/core/main.js */ "./node_modules/@fullcalendar/core/main.js");
-window.FullCalendarDayGrid = __webpack_require__(/*! @fullcalendar/daygrid/main.js */ "./node_modules/@fullcalendar/daygrid/main.js");
-window.FullCalendarGoogleCalendar = __webpack_require__(/*! @fullcalendar/google-calendar/main.js */ "./node_modules/@fullcalendar/google-calendar/main.js");
-window.FullCalendarInteraction = __webpack_require__(/*! @fullcalendar/interaction/main.js */ "./node_modules/@fullcalendar/interaction/main.js");
-window.FullCalendarList = __webpack_require__(/*! @fullcalendar/list/main.js */ "./node_modules/@fullcalendar/list/main.js");
-window.FullCalendarTimeGrid = __webpack_require__(/*! @fullcalendar/timegrid/main.js */ "./node_modules/@fullcalendar/timegrid/main.js");
+window.FullCalendar = __webpack_require__(/*! @fullcalendar/core/realflight.js */ "./node_modules/@fullcalendar/core/main.js");
+window.FullCalendarDayGrid = __webpack_require__(/*! @fullcalendar/daygrid/realflight.js */ "./node_modules/@fullcalendar/daygrid/main.js");
+window.FullCalendarGoogleCalendar = __webpack_require__(/*! @fullcalendar/google-calendar/realflight.js */ "./node_modules/@fullcalendar/google-calendar/main.js");
+window.FullCalendarInteraction = __webpack_require__(/*! @fullcalendar/interaction/realflight.js */ "./node_modules/@fullcalendar/interaction/main.js");
+window.FullCalendarList = __webpack_require__(/*! @fullcalendar/list/realflight.js */ "./node_modules/@fullcalendar/list/main.js");
+window.FullCalendarTimeGrid = __webpack_require__(/*! @fullcalendar/timegrid/realflight.js */ "./node_modules/@fullcalendar/timegrid/main.js");
 
 __webpack_require__(/*! ./fullcalendar.scss */ "./webpack/plugins/custom/fullcalendar/fullcalendar.scss");
 

@@ -9,9 +9,9 @@ const routes = [
         component: () => import(/* webpackChunkName: "Login" */ '@/pages/auth/Login.vue'),
     },
     {
-        path: '/arrival',
-        name: 'arrival',
-        component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/flights/Index.vue'),
+        path: '/checkin',
+        name: 'checkin',
+        component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/checkin/Index.vue'),
     },
     {
         path: '/general',
@@ -44,14 +44,14 @@ const routes = [
         component: () => import(/* webpackChunkName: "Company.vue" */ '@/pages/Truck/Company.vue'),
     },
     {
-        path: '/uld',
+        path: '/checkin',
         name: 'uld',
-        component: () => import(/* webpackChunkName: "Uld.vue" */ '@/pages/uld/Uld.vue'),
+        component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/checkin/Index.vue'),
     },
     {
         path: '/linkToUld',
         name: 'linkToUld',
-        component: () => import(/* webpackChunkName: "linkToUld.vue" */ '@/pages/uld/linkToUld.vue'),
+        component: () => import(/* webpackChunkName: "linkToUld.vue" */ '@/pages/checkin/linkToUld.vue'),
     },
     {
         path: '/trip',
@@ -60,9 +60,9 @@ const routes = [
     },
 
     {
-        path: '/awb',
-        name: 'awb',
-        component: () => import(/* webpackChunkName: "Awb.vue" */ '@/pages/awb/Index.vue'),
+        path: '/realflight',
+        name: 'realflight',
+        component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/realflight/Index.vue'),
     },
     {
         path: '/Inbound',
@@ -81,7 +81,7 @@ const routes = [
     },
 
 
-    {path: '/', name: 'dashboard', redirect: {name: 'awb'}},
+    {path: '/', name: 'dashboard', redirect: {name: 'realflight'}},
 
 ]
 

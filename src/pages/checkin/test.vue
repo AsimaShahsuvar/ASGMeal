@@ -181,11 +181,11 @@ export default {
       dialogFormVisibleAdd: false,
       isNewData: false,
       editItem: {
-       uldName:'',
-       weight:'',
-       contour:'',
-       uldTypesId:'',
-       description:'',
+        uldName:'',
+        weight:'',
+        contour:'',
+        uldTypesId:'',
+        description:'',
 
       },
       allUld: [],

@@ -904,7 +904,7 @@ export default {
 
         ElNotification({
           title: 'Error',
-          message: 'This serial number is not found,Please add awb below',
+          message: 'This serial number is not found,Please add realflight below',
           type: 'error',
           zIndex: '977000'
         })

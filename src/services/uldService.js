@@ -1,6 +1,6 @@
 import api from './api'
 
-const ENDPOINT = '/uld'
+const ENDPOINT = '/checkin'
 export default {
 
     load(search, page = null, limit = null) {

@@ -1,5 +1,5 @@
 <template>
-  <router-view v-if="!isAuthorized" />
+  <HeaderBlock /> <router-view v-if="!isAuthorized" />
   <div v-if="isAuthorized">
     <!--    <HeaderMobileBlock />-->
     <!--    <div class="d-flex flex-column flex-root">-->
@@ -12,7 +12,7 @@
     <!--          id="kt_wrapper"-->
     <!--          class="d-flex flex-column flex-row-fluid wrapper pb-16"-->
     <!--        >-->
-    <HeaderBlock />
+
     <!--          <div class="mobile-margin d-md-none mt-6" />-->
 
     <el-dialog
