@@ -14,14 +14,14 @@ const routes = [
         component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/checkin/Index.vue'),
     },
     {
-        path: '/general',
-        name: 'general',
-        component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/general/Index.vue'),
+        path: '/dispatcher',
+        name: 'dispatcher',
+        component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/dispatcher/Index.vue'),
     },
     {
-        path: '/shipper',
-        name: 'shipper',
-        component: () => import(/* webpackChunkName: "Shipper.vue" */ '@/pages/Dictionary/Shipper.vue'),
+        path: '/supervisor',
+        name: 'supervisor',
+        component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/supervisor/Index.vue'),
     },
     {
         path: '/consignee',

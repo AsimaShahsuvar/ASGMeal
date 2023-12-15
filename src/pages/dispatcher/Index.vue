@@ -1,3 +1,4 @@
+
 <template>
   <div class="container-fluid">
 
@@ -5,48 +6,14 @@
       <!--            <div class="panel-heading">Panel Heading</div>-->
       <div class="panel-body">
         <div class="row">
-
-          <div class="col-md-3" style="display: inherit;column-gap: 7px;">
-
+          <div class="col-md-2">
             <div class="form-group">
-              <input type="date" class="form-control" id="fromSt" onchange="getFlight();">
-            </div>
-            <button class="btn btn-primary" onclick="prevBtn('-')">Prev</button>
-            <button class="btn btn-primary" onclick="prevBtn('+')">Next</button>
-          </div>
-          <div class="col-md-2">
-
-            <div class="terminal">
-<!--              <label>-->
-<!--                <input type="checkbox" value="0" name="options[]" id="dep"  checked="true" onchange="getFlight();"><span class="label-text">Arrival</span>-->
-<!--              </label>-->
-              <label>
-                <input type="checkbox" value="1" name="options[]"  id="arr" checked="true" onchange="getFlight();"><span class="label-text">DEP</span>
-              </label>
-              <label>
-                <input type="checkbox" value="2" name="options[]"  id="tra" checked="true" onchange="getFlight();"><span class="label-text">Tranzit</span>
-              </label>
-
+              <input type="date" class="form-control" id="fromSt">
             </div>
           </div>
-
-          <div class="col-md-2">
-            <div class="terminal">
-              <fieldset style="display: inline-block">
-
-                <input type="radio" name="action" id="t1" value="0" checked onchange="getFlight(); "/> <label for="track"> UTC</label>
-                <input type="radio" name="action" id="t2" value="1" onchange="getFlight();" /> <label for="event"> Local</label>
-
-              </fieldset>
-
-            </div>
-          </div>
-
           <div class="col-md-1">
-            <button class="btn btn-primary "   onclick="downloadExcelFile();">Excel</button>
+            <button class="btn btn-primary" onclick="getFlight();">Search</button>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -184,16 +151,19 @@
     </div>
   </div>
 </template>
-<script>
 
+<script >
 
 export default {
 
   mounted() {
     let Script = document.createElement("script");
-    Script.setAttribute("src", "/assets/js/checkin.js");
+    Script.setAttribute("src", "/assets/js/dispatcher.js");
     document.head.appendChild(Script);
   }
 };
 </script>
 
+<style scoped>
+
+</style>

@@ -6,7 +6,7 @@ $("#document").ready(function () {
     var day = d.getDate();
     var minute = d.getMinutes();
     var hour = d.getHours();
-    var c = new Date(year+1, month-1, day, hour, minute);
+    var c = new Date(year, month, day, hour, minute);
 
 
     $("#fromSt").val(c.toDateInputValue());
@@ -82,7 +82,7 @@ function getFlight() {
     let td ='';
     let date=$("#fromSt").val();
     $.ajax({
-        url: 'https://apifm.asg.az/api/flight/getflightlist',
+        url: 'https://apifm.asg.az/api/flight/getsupervaisorlist',
         type: 'POST',
         dataType: 'json',
         contentType: "application/json",
@@ -100,34 +100,36 @@ function getFlight() {
             let  status,status2,route;
             let color="#78e933c9"
             $("#flight tbody tr").remove();
+            let count = 0;
             $.each(result, function (i, item) {
                 let td ='';
+                count++;
                 for (let a = 1; a <1440 ; a++) {
 
-                    td+=`<td  id="${'a'+item.row + '_' + a}" style="background:transparent" ></td>`;
+                    td+=`<td  id="${'a'+count + '_' + a}" style="background:transparent" ></td>`;
 
 
                 }
 
-                $(`<tr class="animate__animated animate__fadeInLeft">`).html(`<td class="sticky-col first-col">${item.row}</td><${td}`).appendTo(`#flight tbody`)
+                $(`<tr class="animate__animated animate__fadeInLeft">`).html(`<td class="sticky-col first-col" style="text-align: left">${i+1}. ${item.fullName}</td><${td}`).appendTo(`#flight tbody`)
                 $(`<tr style='height:5px!important;box-shadow:inset -5px 3px 6px 1px #efefef'>`).html(`<td  colspan='1440'></td>`).appendTo(`#flight tbody`)
 
                 $.each(item.data, function (i, item2) {
-                   if(item2.status === 1){
-                       status="/assets/takeoff.png"
-                       color="#78e933c9"
-                       status2="";
-                       route = item2.route
-                   }else{
-                       status="/assets/landing.png";
-                       color="#c0d0ff";
-                       status2="";
-                       route = item2.route
-                   } if(item2.status === 2){
+                    if(item2.status === 1){
+                        status="/assets/takeoff.png"
+                        color="#78e933c9"
+                        status2="";
+                        route = item2.route
+                    }else{
+                        status="/assets/landing.png";
+                        color="#c0d0ff";
+                        status2="";
+                        route = item2.route
+                    } if(item2.status === 2){
                         status="/assets/landing.png"
                         status2 = `<img width="17px"  src="/assets/takeoff.png">`
                         color="#a5f2ff"
-                      route = "";
+                        route = "";
                     }
                     //console.log(item2.scT_OFB);
                     //if(item2.scT_OFB ==!"" && item2.scT_ONB==!"") {
@@ -157,17 +159,16 @@ function getFlight() {
                         // $(`#${item.park +'_' + t}`).css({"background":"#9eef72","border": "2px dotted green"})
 
 
-                        $(`#${'a'+item.row + '_' + t}`).remove();
+                        $(`#${'a'+count + '_' + t}`).remove();
                     }
 
 
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");
-                    $(`#${'a'+item.row + '_' + t}`).addClass("tool").attr("colspan", diffCols).css({"background": `${color}` }).html(`<span class="custom info">
+                    $(`#${'a'+count + '_' + t}`).addClass("tool").attr("colspan", diffCols).css({"background": `${color}` }).html(`<span class="custom info">
      <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
    <p> Type: ${item2.aC_type}</p>
 
   <p>  Route: ${item2.route}</p>
-  <p>  Id: ${item2.id}</p>
   <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
    <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
   </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
@@ -191,14 +192,14 @@ function thClick(e){
 
     $(".allThClass th").each(function (){
         if($(this).css("background-color")==="rgb(255, 0, 0)"){
-          a=a+1;
+            a=a+1;
             if(a===1){
                 time1=$(e).text();
                 console.log("test");
             }
             if(a===2){
                 time2=$(e).text();
-                 console.log("test2");
+                console.log("test2");
                 return false;
             }
         }

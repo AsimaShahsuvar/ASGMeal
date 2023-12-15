@@ -82,7 +82,7 @@ function getFlight() {
     let td ='';
     let date=$("#fromSt").val();
     $.ajax({
-        url: 'https://apiazal.asg.az/api/flight/getcheckin',
+        url: 'https://apifm.asg.az/api/flight/getcheckin',
         type: 'POST',
         dataType: 'json',
         contentType: "application/json",
@@ -203,7 +203,7 @@ function getFlight() {
          <p>  Id: ${item2.id}</p>
          <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
          <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
-        </span><div style="margin-left: 0"></div><div><img style="width: 17px" src="${status}"> ${item2.flt} ${status2} ${route} </div>`);
+        </span><div style="margin-left: 0"></div><div> ${item2.flt}  ${route} </div>`);
                 });
             })
             swal.close()
@@ -282,7 +282,7 @@ function downloadExcelFile() {
         let date = $("#fromSt").val();
 
         // API endpoint URL
-        const apiUrl = 'https://apiazal.asg.az/api/flight/exportexcellist';
+        const apiUrl = 'https://apifm.asg.az/api/flight/exportexcellist';
 
         // Your request payload
         const requestData = {
