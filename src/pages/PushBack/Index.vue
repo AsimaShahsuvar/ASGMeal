@@ -41,16 +41,7 @@
 
             </div>
           </div>
-          <div class="col-md-2">
-            <div class="terminal" onchange="getFlight();" >
-              <select name="partOfDay" id="partOfDay" class="form-control">
-                <option value="0"  selected>00:00-23:59</option>
-                <option value="1">00:00-08:00</option>
-                <option value="2"> 08:00-20:00</option>
-                <option value="3"> 20:00-00:00</option>
-              </select>
-            </div>
-          </div>
+
           <div class="col-md-1">
             <button class="btn btn-primary "   onclick="downloadExcelFile();">Excel</button>
           </div>
@@ -195,13 +186,12 @@
 </template>
 <script>
 
-import Departure from "@/pages/flights/Departure.vue";
 
 export default {
-  components: {Departure},
+
   mounted() {
     let Script = document.createElement("script");
-    Script.setAttribute("src", "/assets/js/supervisor.js");
+    Script.setAttribute("src", "/assets/js/pushback.js");
     document.head.appendChild(Script);
   }
 };

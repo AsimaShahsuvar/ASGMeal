@@ -81,9 +81,8 @@ function getFlight() {
     let    letiv='';
     let td ='';
     let date=$("#fromSt").val();
-    let partOfDay=$("#partOfDay").val();
     $.ajax({
-        url: 'https://apifm.asg.az/api/flight/getsupervisorlist',
+        url: 'https://apifm.asg.az/api/flight/getcleanerlist',
         type: 'POST',
         dataType: 'json',
         contentType: "application/json",
@@ -93,8 +92,7 @@ function getFlight() {
                 "st_from": date,
                 "end_to": date,
                 "status": checked,
-                "isLocal": islocal,
-                "partofday":partOfDay
+                "isLocal": islocal
             }
         ),
         success: function (result) {
