@@ -53,12 +53,6 @@ Date.prototype.toDateInputValue = (function () {
 function getFlight() {
     var checked = []
     let status1,status2,status3,islocal;
-    swal({
-        title: "Please wait!",
-        //text: "Page is loading",
-        imageUrl: '/assets/loading.gif',
-        showConfirmButton: false
-    });
 
     console.log(islocal);
     if ($('#t2').is(':checked')) {
@@ -206,7 +200,7 @@ function getFlight() {
         </span><div style="margin-left: 0"></div><div> ${item2.flt}  ${route} </div>`);
                 });
             })
-            swal.close()
+
         },
         failure: function (jqXHR, textStatus, errorThrown) {
             alert("error"); // Display error message

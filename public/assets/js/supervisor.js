@@ -53,14 +53,8 @@ Date.prototype.toDateInputValue = (function () {
 function getFlight() {
     var checked = []
     let status1,status2,status3,islocal;
-    swal({
-        title: "Please wait!",
-        //text: "Page is loading",
-        imageUrl: '/assets/loading.gif',
-        showConfirmButton: false
-    });
 
-    console.log(islocal);
+
     if ($('#t2').is(':checked')) {
         islocal = true
     }
@@ -98,7 +92,8 @@ function getFlight() {
             }
         ),
         success: function (result) {
-            //console.log(result);
+
+        //console.log(result);
             let  status,status2,route;
             let color="#78e933c9"
             $("#flight tbody tr").remove();
@@ -107,10 +102,7 @@ function getFlight() {
                 let td ='';
                 count++;
                 for (let a = 1; a <1440 ; a++) {
-
                     td+=`<td  id="${'a'+count + '_' + a}" style="background:transparent" ></td>`;
-
-
                 }
 
                 $(`<tr class="animate__animated animate__fadeInLeft">`).html(`<td class="sticky-col first-col" style="text-align: left">${i+1}. ${item.fullName}</td><${td}`).appendTo(`#flight tbody`)
@@ -167,20 +159,19 @@ function getFlight() {
 
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");
                     $(`#${'a'+count + '_' + t}`).addClass("tool").attr("colspan", diffCols).css({"background": `${color}` }).html(`<span class="custom info">
-     <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
-   <p> Type: ${item2.aC_type}</p>
-
-  <p>  Route: ${item2.route}</p>
-  <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
-   <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
-  </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
+                         <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
+                       <p> Type: ${item2.aC_type}</p>
+                    
+                      <p>  Route: ${item2.route}</p>
+                      <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
+                       <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
+                      </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
 
                     // }
                     // $(`#${item.park+(eq_start+30)}`).html(`<div> <img style="width: 17px" src="images/landing.png">${item2.FlightLand} </div>`)
                 });
 
             })
-            swal.close()
         },
         failure: function (jqXHR, textStatus, errorThrown) {
             alert("error"); // Display error message
