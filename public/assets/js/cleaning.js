@@ -82,7 +82,7 @@ function getFlight() {
     let td ='';
     let date=$("#fromSt").val();
     $.ajax({
-        url: 'https://apifm.asg.az/api/flight/getsupervisorlist',
+        url: 'https://apifm.asg.az/api/flight/getcleanerlist',
         type: 'POST',
         dataType: 'json',
         contentType: "application/json",

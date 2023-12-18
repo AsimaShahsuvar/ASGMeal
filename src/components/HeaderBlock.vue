@@ -26,6 +26,10 @@
           <a class="nav-link" href="/supervisor"><i class="fa fa-plane" aria-hidden="true"></i>Supervisor</a>
         </li>
 
+         <li class="nav-item">
+          <a class="nav-link" href="/cleaning"><i class="fa fa-plane" aria-hidden="true"></i>Cleaning</a>
+        </li>
+
       </ul>
     </div>
   </nav>
