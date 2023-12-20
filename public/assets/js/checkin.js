@@ -90,7 +90,7 @@ function getFlight() {
             }
         ),
         success: function (result) {
-            //console.log(result);
+
             let  status,status2,route,middle_end,checkin; let linearCh,middleTransit_end,middleTransit_end_last;let diffCols,a,checkinLast,b,middle;
             let color="#78e933c9"
             $("#flight tbody tr").remove();
@@ -186,7 +186,7 @@ function getFlight() {
 
                         let k=t+b;
                         let z=k
-                        color = color = `linear-gradient(90deg,rgb(165, 242, 255) 0%, rgb(165, 242, 255) ${t}%, blue ${t}%, blue ${k}%,red ${k}%,red 100%)`
+                        color = color = `linear-gradient(90deg,#2962ff 0%, #2962ff ${t}%, #42a5f5 ${t}%, #42a5f5 ${k}%,#90caf9 ${k}%,#90caf9 100%)`
                         route = "";
                     }
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");

@@ -34,9 +34,9 @@ const routes = [
         component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/PushBack/Index.vue'),
     },
     {
-        path: '/truck',
-        name: 'truck',
-        component: () => import(/* webpackChunkName: "Truck.vue" */ '@/pages/Truck/Truck.vue'),
+        path: '/addsupervisor',
+        name: 'addsupervisor',
+        component: () => import(/* webpackChunkName: "Index.vue" */ '@/pages/AddSupervisor/Index.vue'),
     },
     {
         path: '/company',

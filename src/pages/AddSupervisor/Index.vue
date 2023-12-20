@@ -1,4 +1,5 @@
 <template>
+
   <div class="container-fluid">
 
     <div class="panel panel-default">
@@ -18,24 +19,29 @@
 
             <div class="terminal">
               <label>
-                <input type="checkbox" value="0" name="options[]" id="dep"  checked="true" onchange="getFlight();"><span class="label-text">Arrival</span>
+                <input type="checkbox" value="0" name="options[]" id="dep" checked="true" onchange="getFlight();"><span
+                  class="label-text">Arrival</span>
               </label>
               <label>
-                <input type="checkbox" value="1" name="options[]"  id="arr" checked="true" onchange="getFlight();"><span class="label-text">DEP</span>
+                <input type="checkbox" value="1" name="options[]" id="arr" checked="true" onchange="getFlight();"><span
+                  class="label-text">DEP</span>
               </label>
               <label>
-                <input type="checkbox" value="2" name="options[]"  id="tra" checked="true" onchange="getFlight();"><span class="label-text">Tranzit</span>
+                <input type="checkbox" value="2" name="options[]" id="tra" checked="true" onchange="getFlight();"><span
+                  class="label-text">Tranzit</span>
               </label>
 
             </div>
-            </div>
+          </div>
 
           <div class="col-md-2">
             <div class="terminal">
               <fieldset style="display: inline-block">
 
-                <input type="radio" name="action" id="t1" value="0"  onchange="getFlight(); "/> <label for="track"> UTC</label>
-                <input type="radio" name="action" id="t2" value="1" checked onchange="getFlight();" /> <label for="event"> Local</label>
+                <input type="radio" name="action" id="t1" value="0" onchange="getFlight(); "/> <label for="track">
+                UTC</label>
+                <input type="radio" name="action" id="t2" value="1" checked onchange="getFlight();"/> <label
+                  for="event"> Local</label>
 
               </fieldset>
 
@@ -43,7 +49,7 @@
           </div>
 
           <div class="col-md-1">
-            <button class="btn btn-primary "   onclick="downloadExcelFile();">Excel</button>
+            <button class="btn btn-primary " onclick="downloadExcelFile();">Excel</button>
           </div>
 
 
@@ -53,6 +59,7 @@
 
 
   </div>
+
   <div class="container-fluid">
     <div class="table_div">
       <table class="table table-bordered animate__animated animate__fadeIn" id="flight">
@@ -144,10 +151,10 @@
           <th colspan="15" onclick="thClick(this)" class="thclass">17:30</th>
           <th colspan="15" onclick="thClick(this)" class="thclass">17:45</th>
 
-          <th colspan="15" onclick="thClick(this)" class="thclass" >18:00</th>
-          <th colspan="15" onclick="thClick(this)" class="thclass" >18:15</th>
-          <th colspan="15" onclick="thClick(this)" class="thclass" >18:30</th>
-          <th colspan="15" onclick="thClick(this)" class="thclass" >18:45</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass">18:00</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass">18:15</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass">18:30</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass">18:45</th>
 
           <th colspan="15" onclick="thClick(this)" class="thclass">19:00</th>
           <th colspan="15" onclick="thClick(this)" class="thclass">19:15</th>
@@ -183,18 +190,85 @@
       </table>
     </div>
   </div>
+
+  <div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add supervisor</h4>
+          <button type="button" class="close" onclick="hide()">&times;</button>
+
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="shift" class="form-label">Shift</label>
+                    <select class="form-select" id="shift" onchange="getSupervisorlist();">
+
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="supervisor" class="form-label ">Supervisor</label>
+                    <select class="form-select" id="supervisor" >
+
+                    </select>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" onclick="saveSupervisorToFlight()">Save</button>
+          <button type="button" class="btn btn-primary" onclick="hide()">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </template>
 <script>
 
-import Departure from "@/pages/flights/Departure.vue";
 
 export default {
-  components: {Departure},
   mounted() {
     let Script = document.createElement("script");
-    Script.setAttribute("src", "/assets/js/realflight.js");
+    Script.setAttribute("src", "/assets/js/addSupervisorToFlight.js");
     document.head.appendChild(Script);
+
+
   }
 };
 </script>
 
+<style>
+.close {
+  float: right;
+  border: none;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+}
+
+.modal-title {
+  font-size: 21px;
+}
+
+.modal.in {
+  background-color: rgba(0, 0, 0, 58%); /* Adjust the opacity as needed */
+}
+
+.modal-content {
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+</style>

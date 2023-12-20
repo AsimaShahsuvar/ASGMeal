@@ -5482,7 +5482,7 @@ textarea.form-control-lg {
     --bs-modal-padding: 1rem;
     --bs-modal-margin: 0.5rem;
     --bs-modal-color: ;
-    --bs-modal-bg: #222;
+    --bs-modal-bg: #fff;
     --bs-modal-border-color: var(--bs-border-color-translucent);
     --bs-modal-border-width: var(--bs-border-width);
     --bs-modal-border-radius: var(--bs-border-radius-lg);
@@ -5491,12 +5491,12 @@ textarea.form-control-lg {
     --bs-modal-header-padding-x: 1rem;
     --bs-modal-header-padding-y: 1rem;
     --bs-modal-header-padding: 1rem 1rem;
-    --bs-modal-header-border-color: #282828;
+    --bs-modal-header-border-color: #efefef;
     --bs-modal-header-border-width: var(--bs-border-width);
     --bs-modal-title-line-height: 1.5;
     --bs-modal-footer-gap: 0.5rem;
     --bs-modal-footer-bg: ;
-    --bs-modal-footer-border-color: #282828;
+    --bs-modal-footer-border-color: #efefef;
     --bs-modal-footer-border-width: var(--bs-border-width);
     position: fixed;
     top: 0;
@@ -12201,4 +12201,11 @@ legend {
 
 .popover-title {
     border-bottom: none;
+}
+.modal-dialog {
+
+
+    box-shadow: 0 5px 15px rgba(0,0,0,.5);
+
+    border-radius: 8px;
 }

@@ -1,4 +1,5 @@
-let todayHour;let todayMinute;
+let todayHour;
+let todayMinute;
 $("#document").ready(function () {
     var d = new Date();
     var year = d.getFullYear();
@@ -6,16 +7,16 @@ $("#document").ready(function () {
     var day = d.getDate();
     var minute = d.getMinutes();
     var hour = d.getHours();
-    var c = new Date(year, month, day, hour, minute);
-
-
+    var c = new Date(year + 1, month - 1, day, hour, minute);
     $("#fromSt").val(c.toDateInputValue());
     var today = new Date();
     // console.log(today.getHours()+":"+today.getMinutes())
-    todayHour=today.getHours();
-    todayMinute=today.getMinutes();
-
+    todayHour = today.getHours();
+    todayMinute = today.getMinutes();
+    getshiftlist();
+    getSupervisorlist();
 })
+
 function prevBtn(p) {
     let date1 = document.getElementById('fromSt').value;
     let date = new Date(date1);
@@ -31,8 +32,7 @@ function prevBtn(p) {
     if (p == '+') {
         date2 = date.minusDays(-1).getDate();
         date3 = date.minusDays(-1);
-    }
-    else if (p == '-') {
+    } else if (p == '-') {
         date2 = date.minusDays(1).getDate();
         date3 = date.minusDays(1);
     }
@@ -51,33 +51,35 @@ Date.prototype.toDateInputValue = (function () {
 });
 
 function getFlight() {
+    swal({
+        title: "Please wait!",
+        text: "Page is loading",
+         imageUrl: '/assets/loading.gif',
+        showConfirmButton: false
+    });
     var checked = []
-    let status1,status2,status3,islocal;
-
+    let status1, status2, status3, islocal;
 
     if ($('#t2').is(':checked')) {
         islocal = true
-    }
-    else if ($('#t1').is(':checked')) {
+    } else if ($('#t1').is(':checked')) {
         islocal = false
 
     }
     // console.log(islocal);
 
-    $("input[name='options[]']:checked").each(function ()
-    {
+    $("input[name='options[]']:checked").each(function () {
         checked.push(parseInt($(this).val()));
     });
     // console.log(checked);
-    let eq_start,eq_end;
+    let eq_start, eq_end;
     // console.log(array.data)
     let flightsDiv = '';
-    let    letiv='';
-    let td ='';
-    let date=$("#fromSt").val();
-    let partOfDay=$("#partOfDay").val();
+    let letiv = '';
+    let td = '';
+    let date = $("#fromSt").val();
     $.ajax({
-        url: 'https://apifm.asg.az/api/flight/getemployeeworkflowlist',
+        url: 'https://apifm.asg.az/api/flight/getflightlist',
         type: 'POST',
         dataType: 'json',
         contentType: "application/json",
@@ -87,44 +89,48 @@ function getFlight() {
                 "st_from": date,
                 "end_to": date,
                 "status": checked,
-                "isLocal": islocal,
-                "partofday":partOfDay,
-                "service_id":2
+                "isLocal": islocal
             }
         ),
         success: function (result) {
-
-        //console.log(result);
-            let  status,status2,route;
-            let color="#78e933c9"
+            //console.log(result);
+            let status, status2, route;
+            let color = "#00c853"
             $("#flight tbody tr").remove();
-            let count = 0;
-            console.log(new Date);
             $.each(result, function (i, item) {
-                let td ='';
-                count++;
-                for (let a = 1; a <1440 ; a++) {
-                    td+=`<td  id="${'a'+count + '_' + a}" style="background:transparent" ></td>`;
+                let td = '';
+                let img="";
+                for (let a = 1; a < 1440; a++) {
+
+                    td += `<td  id="${'a' + item.row + '_' + a}" style="background:transparent" ></td>`;
+
+
                 }
 
-                $(`<tr class="animate__animated animate__fadeInLeft">`).html(`<td class="sticky-col first-col" style="text-align: left">${i+1}. ${item.fullName}</td><${td}`).appendTo(`#flight tbody`)
+                $(`<tr class="animate__animated animate__fadeInLeft">`).html(`<td class="sticky-col first-col">${item.row}</td><${td}`).appendTo(`#flight tbody`)
                 $(`<tr style='height:5px!important;box-shadow:inset -5px 3px 6px 1px #efefef'>`).html(`<td  colspan='1440'></td>`).appendTo(`#flight tbody`)
 
                 $.each(item.data, function (i, item2) {
-                    if(item2.status === 1){
-                        status="/assets/takeoff.png"
-                        color="#78e933c9"
-                        status2="";
-                        route = item2.route
+                    if(item2.hasService === true){
+                        img="<img  style='width: 18px;' src='/assets/image/icons-08-01.png'/>";
                     }else{
-                        status="/assets/landing.png";
-                        color="#c0d0ff";
-                        status2="";
+                        img="";
+                    }
+                    if (item2.status === 1) {
+                        status = "/assets/takeoff.png"
+                        color = "#00c853"
+                        status2 = "";
                         route = item2.route
-                    } if(item2.status === 2){
-                        status="/assets/landing.png"
+                    } else {
+                        status = "/assets/landing.png";
+                        color = "#b0bec5";
+                        status2 = "";
+                        route = item2.route
+                    }
+                    if (item2.status === 2) {
+                        status = "/assets/landing.png"
                         status2 = `<img width="17px"  src="/assets/takeoff.png">`
-                        color="#a5f2ff"
+                        color = "#039be5"
                         route = "";
                     }
                     //console.log(item2.scT_OFB);
@@ -149,68 +155,78 @@ function getFlight() {
                     //console.log("end1 "+end1,"end2 "+end2)
 
 
-                    let diffCols = eq_end - eq_start+1;
+                    let diffCols = eq_end - eq_start + 1;
                     for (t = eq_start; t < eq_end; t++) {
 
                         // $(`#${item.park +'_' + t}`).css({"background":"#9eef72","border": "2px dotted green"})
 
 
-                        $(`#${'a'+count + '_' + t}`).remove();
+                        $(`#${'a' + item.row + '_' + t}`).remove();
                     }
 
 
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");
-                    $(`#${'a'+count + '_' + t}`).addClass("tool").attr("colspan", diffCols).css({"background": `${color}` }).html(`<span class="custom info">
-                         <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
-                       <p> Type: ${item2.aC_type}</p>
-                    
-                      <p>  Route: ${item2.route}</p>
-                      <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
-                       <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
-                      </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
+                    $(`#${'a' + item.row + '_' + t}`).addClass("tool").attr({
+                        "colspan": diffCols,
+                        "id": item2.id,
+
+                        "onclick": "modalOpenSupervisor("+item2.id+");",
+                    }).css({"background": `${color}`}).html(`<span class="custom info">
+     <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
+   <p> Type: ${item2.aC_type}</p>
+
+  <p>  Route: ${item2.route}</p>
+  <p>  Id: ${item2.id}</p>
+  <p> Block on: ${item2.scT_OFB.substring(0, 5)}</p>
+   <p> Block Off : ${item2.scT_ONB.substring(0, 5)}</p>
+  </span><div style="margin-left: 0"></div><div>${img} ${item2.flt} ${route} </div>`);
 
                     // }
                     // $(`#${item.park+(eq_start+30)}`).html(`<div> <img style="width: 17px" src="images/landing.png">${item2.FlightLand} </div>`)
                 });
-                console.log(new Date);
+
             })
+            swal.close()
+
         },
         failure: function (jqXHR, textStatus, errorThrown) {
             alert("error"); // Display error message
         }
     });
 }
-a=0;  let time1 ,time2;
-function thClick(e){
 
-    $(e).css("background-color","rgb(255, 0, 0)");
+a = 0;
+let time1, time2;
 
-    $(".allThClass th").each(function (){
-        if($(this).css("background-color")==="rgb(255, 0, 0)"){
-            a=a+1;
-            if(a===1){
-                time1=$(e).text();
+function thClick(e) {
+
+    $(e).css("background-color", "rgb(255, 0, 0)");
+
+    $(".allThClass th").each(function () {
+        if ($(this).css("background-color") === "rgb(255, 0, 0)") {
+            a = a + 1;
+            if (a === 1) {
+                time1 = $(e).text();
                 console.log("test");
             }
-            if(a===2){
-                time2=$(e).text();
+            if (a === 2) {
+                time2 = $(e).text();
                 console.log("test2");
                 return false;
             }
         }
-        if(a>2){
-            $(".allThClass th").css("background-color","rgb(0 58 112)");
-            a=0;
-            time1="";
-            time2="";
+        if (a > 2) {
+            $(".allThClass th").css("background-color", "rgb(0 58 112)");
+            a = 0;
+            time1 = "";
+            time2 = "";
 
         }
 
 
-
     })
 
-    console.log(a,time1,time2);
+    console.log(a, time1, time2);
 }
 
 function downloadExcelFile() {
@@ -293,4 +309,88 @@ function downloadExcelFile() {
                 alert('An error occurred while processing your request. Please try again.');
             });
     }
+}
+
+let trtdId;
+function modalOpenSupervisor(id) {
+    $("#myModal").addClass("in");
+    $("#myModal").fadeIn();
+
+    trtdId=id;
+}
+
+function hide() {
+    $("#myModal").fadeOut();
+}
+
+function getshiftlist() {
+
+    $.ajax({
+        url: 'https://apifm.asg.az/api/Employee/getshiftlist ',
+        type: 'GET',
+        dataType: 'json',
+      success: function (result) {
+            $("#shift option").remove();
+            $("<option style='text-align:center;' id='0'>All shift</option>").appendTo("#shift");
+            $.each(result, function (i, item) {
+                $("<option style='text-align:center;' id='" + result[i].id + "'>" + result[i].description + "</option>").appendTo("#shift");
+            });
+        },
+        failure: function (jqXHR, textStatus, errorThrown) {
+            alert("error"); // Display error message
+        }
+    });
+}
+function getSupervisorlist() {
+    let shift_id= $("#shift option:selected").attr("id");
+    $.ajax({
+        url: 'https://apifm.asg.az/api/Employee/getemployeelist',
+        type: 'GET',
+        dataType: 'json',
+        data:{
+            shift_id:shift_id
+        },
+        success: function (result) {
+            $("#supervisor option").remove();
+
+            $.each(result, function (i, item) {
+                $("<option style='text-align:center;' id='" + result[i].id + "'>" + result[i].fullName + "</option>").appendTo("#supervisor");
+            });
+        },
+        failure: function (jqXHR, textStatus, errorThrown) {
+            alert("error"); // Display error message
+        }
+    });
+}
+
+function saveSupervisorToFlight() {
+   let employeeId= $("#supervisor option:selected").attr("id");
+
+    $.ajax({
+        url: 'https://apifm.asg.az/api/employeeservice/add',
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify(
+            {
+                flightId: trtdId,
+                serviceId:2,
+                employeeId:employeeId
+            }
+        ),
+        success: function (result){
+            $("#"+trtdId).prepend("<img style='width: 18px;' src='/assets/image/icons-08-01.png'/>")
+            swal({
+                title: "Good job!",
+                text: "Supervisor has been linked to flight",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            hide();
+
+        },
+        failure: function (jqXHR, textStatus, errorThrown) {
+            alert("error"); // Display error message
+        }
+    });
 }

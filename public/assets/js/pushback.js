@@ -75,7 +75,7 @@ function getFlight() {
     let td ='';
     let date=$("#fromSt").val();
     $.ajax({
-        url: 'https://apifm.asg.az/api/flight/getcleanerlist',
+        url: 'https://apifm.asg.az/api/flight/getemployeeworkflowlist',
         type: 'POST',
         dataType: 'json',
         contentType: "application/json",

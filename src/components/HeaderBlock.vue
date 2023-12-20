@@ -16,21 +16,25 @@
           <a class="nav-link" href="/checkin"><i class="fa fa-car" aria-hidden="true"></i>Checkin</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="/realflight"><i class="fa fa-home" aria-hidden="true"></i>Ramp</a>
-      </li>
+          <a class="nav-link" href="/realflight"><i class="fa fa-home" aria-hidden="true"></i>Ramp</a>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link" href="/dispatcher"><i class="fa fa-plane" aria-hidden="true"></i>Dispatcher</a>
         </li>
-         <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="/supervisor"><i class="fa fa-plane" aria-hidden="true"></i>Supervisor</a>
         </li>
 
-         <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="/cleaning"><i class="fa fa-plane" aria-hidden="true"></i>Cleaning</a>
         </li>
-      <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="/pushback"><i class="fa fa-plane" aria-hidden="true"></i>PushBack</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/addsupervisor"><i class="fa fa-plane" aria-hidden="true"></i>Add Supervisor to
+            Flight</a>
         </li>
 
       </ul>
@@ -85,39 +89,48 @@ const showUserPanel = () => {
 body {
   font-family: "Roboto", sans-serif;
 }
+
 * {
   margin: 0;
   padding: 0;
 }
+
 i {
   margin-right: 10px;
 }
+
 /*----------bootstrap-navbar-css------------*/
 .navbar-logo {
   padding: 15px;
   color: #fff;
 }
+
 .navbar-mainbg {
   background-color: #003a70;
   padding: 0px;
 }
+
 #navbarSupportedContent {
-  overflow: hidden!important;
+  overflow: hidden !important;
   position: relative;
 }
+
 #navbarSupportedContent ul {
   padding: 0px;
   margin: 0px;
 }
+
 #navbarSupportedContent ul li a i {
   margin-right: 10px;
 }
+
 #navbarSupportedContent li {
   list-style-type: none;
   float: left;
 }
+
 #navbarSupportedContent ul li a {
-  color:white;
+  color: white;
   text-decoration: none;
   font-size: 15px;
   display: block;
@@ -126,11 +139,13 @@ i {
   transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: relative;
 }
+
 #navbarSupportedContent > ul > li.active > a {
   color: #5161ce;
   background-color: transparent;
   transition: all 0.7s;
 }
+
 #navbarSupportedContent a:not(:only-child):after {
   content: "\f105";
   position: absolute;
@@ -144,9 +159,11 @@ i {
   font-weight: 900;
   transition: 0.5s;
 }
+
 #navbarSupportedContent .active > a:not(:only-child):after {
   transform: rotate(90deg);
 }
+
 .hori-selector {
   display: inline-block;
   position: absolute;
@@ -160,6 +177,7 @@ i {
   border-top-right-radius: 15px;
   margin-top: 10px;
 }
+
 .hori-selector .right,
 .hori-selector .left {
   position: absolute;
@@ -168,12 +186,15 @@ i {
   background-color: #fff;
   bottom: 10px;
 }
+
 .hori-selector .right {
   right: -25px;
 }
+
 .hori-selector .left {
   left: -25px;
 }
+
 .hori-selector .right:before,
 .hori-selector .left:before {
   content: "";
@@ -183,10 +204,12 @@ i {
   border-radius: 50%;
   background-color: #003a70;
 }
+
 .hori-selector .right:before {
   bottom: 0;
   right: -25px;
 }
+
 .hori-selector .left:before {
   bottom: 0;
   left: -25px;
@@ -199,13 +222,16 @@ i {
     -ms-flex-pack: start;
     justify-content: flex-start;
   }
+
   .navbar-expand-custom .navbar-nav {
     -ms-flex-direction: row;
     flex-direction: row;
   }
+
   .navbar-expand-custom .navbar-toggler {
     display: none;
   }
+
   .navbar-expand-custom .navbar-collapse {
     display: -ms-flexbox !important;
     display: flex !important;
@@ -218,6 +244,7 @@ i {
   #navbarSupportedContent ul li a {
     padding: 12px 30px;
   }
+
   .hori-selector {
     margin-top: 0px;
     margin-left: 10px;
@@ -225,28 +252,34 @@ i {
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
   }
+
   .hori-selector .left,
   .hori-selector .right {
     right: 10px;
   }
+
   .hori-selector .left {
     top: -25px;
     left: auto;
   }
+
   .hori-selector .right {
     bottom: -25px;
   }
+
   .hori-selector .left:before {
     left: -25px;
     top: -25px;
   }
+
   .hori-selector .right:before {
     bottom: -25px;
     left: -25px;
   }
 }
+
 .navbar {
-  border-radius: 0px!important;
+  border-radius: 0px !important;
   margin-bottom: 15px;
   border-bottom: 0px solid;
 }
