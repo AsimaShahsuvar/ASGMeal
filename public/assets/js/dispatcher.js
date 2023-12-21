@@ -99,7 +99,7 @@ function getFlight() {
                     $(`#${item.park + '_' + t}`).addClass("tool").attr("colspan", diffCols).css({
                         "background": "#00c853",
                     }).html(`<span class="custom info">
-     <img src="images/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
+     <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
    <p> Type: ${item2.aC_type}</p>
 <p>    RegNo: ${item2.aC_reg}</p>
   <p>  Route: ${item2.route}</p>
