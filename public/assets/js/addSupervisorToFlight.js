@@ -89,7 +89,8 @@ function getFlight() {
                 "st_from": date,
                 "end_to": date,
                 "status": checked,
-                "isLocal": islocal
+                "isLocal": islocal,
+                service_id:2
             }
         ),
         success: function (result) {
@@ -177,8 +178,8 @@ function getFlight() {
 
   <p>  Route: ${item2.route}</p>
   <p>  Id: ${item2.id}</p>
-  <p> Block on: ${item2.scT_OFB.substring(0, 5)}</p>
-   <p> Block Off : ${item2.scT_ONB.substring(0, 5)}</p>
+  <p> ON Board: ${item2.scT_OFB.substring(0, 5)}</p>
+   <p> Off Board : ${item2.scT_ONB.substring(0, 5)}</p>
   </span><div style="margin-left: 0"></div><div>${img} ${item2.flt} ${route} </div>`);
 
                     // }

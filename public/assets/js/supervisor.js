@@ -96,7 +96,7 @@ function getFlight() {
 
         //console.log(result);
             let  status,status2,route;
-            let color="#78e933c9"
+            let color="rgb(0, 200, 83)"
             $("#flight tbody tr").remove();
             let count = 0;
             console.log(new Date);
@@ -113,18 +113,18 @@ function getFlight() {
                 $.each(item.data, function (i, item2) {
                     if(item2.status === 1){
                         status="/assets/takeoff.png"
-                        color="#78e933c9"
+                        color="rgb(0, 200, 83)"
                         status2="";
                         route = item2.route
                     }else{
                         status="/assets/landing.png";
-                        color="#c0d0ff";
+                        color="rgb(176, 190, 197)";
                         status2="";
                         route = item2.route
                     } if(item2.status === 2){
                         status="/assets/landing.png"
                         status2 = `<img width="17px"  src="/assets/takeoff.png">`
-                        color="#a5f2ff"
+                        color="rgb(3, 155, 229)"
                         route = "";
                     }
                     //console.log(item2.scT_OFB);

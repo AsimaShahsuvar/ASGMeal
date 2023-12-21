@@ -91,7 +91,7 @@ function getFlight() {
         success: function (result) {
             //console.log(result);
             let  status,status2,route;
-            let color="#78e933c9"
+            let color="rgb(0, 200, 83)"
             $("#flight tbody tr").remove();
             $.each(result, function (i, item) {
                 let td ='';
@@ -108,18 +108,18 @@ function getFlight() {
                 $.each(item.data, function (i, item2) {
                    if(item2.status === 1){
                        status="/assets/takeoff.png"
-                       color="#78e933c9"
+                       color="rgb(0, 200, 83)"
                        status2="";
                        route = item2.route
                    }else{
                        status="/assets/landing.png";
-                       color="#c0d0ff";
+                       color="rgb(176, 190, 197)";
                        status2="";
                        route = item2.route
                    } if(item2.status === 2){
                         status="/assets/landing.png"
                         status2 = `<img width="17px"  src="/assets/takeoff.png">`
-                        color="#a5f2ff"
+                        color="rgb(3, 155, 229)"
                       route = "";
                     }
                     //console.log(item2.scT_OFB);
@@ -156,14 +156,14 @@ function getFlight() {
 
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");
                     $(`#${'a'+item.row + '_' + t}`).addClass("tool").attr("colspan", diffCols).css({"background": `${color}` }).html(`<span class="custom info">
-     <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
-   <p> Type: ${item2.aC_type}</p>
-
-  <p>  Route: ${item2.route}</p>
-  <p>  Id: ${item2.id}</p>
-  <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
-   <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
-  </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
+                    <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
+                       <p> Type: ${item2.aC_type}</p>
+                    
+                      <p>  Route: ${item2.route}</p>
+                      <p>  Id: ${item2.id}</p>
+                      <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
+                       <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
+                      </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
 
                     // }
                     // $(`#${item.park+(eq_start+30)}`).html(`<div> <img style="width: 17px" src="images/landing.png">${item2.FlightLand} </div>`)
