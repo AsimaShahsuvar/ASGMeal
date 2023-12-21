@@ -161,8 +161,8 @@ function getFlight() {
                     
                       <p>  Route: ${item2.route}</p>
                       <p>  Id: ${item2.id}</p>
-                      <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
-                       <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
+                      <p> On Board: ${item2.scT_OFB.substring(0,5)}</p>
+                       <p> Off Board: ${item2.scT_ONB.substring(0,5)}</p>
                       </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
 
                     // }
