@@ -47,12 +47,6 @@
 
             </div>
           </div>
-
-          <div class="col-md-1">
-            <button class="btn btn-primary " onclick="downloadExcelFile();">Excel</button>
-          </div>
-
-
         </div>
       </div>
     </div>

@@ -34,8 +34,8 @@
             <div class="terminal">
               <fieldset style="display: inline-block">
 
-                <input type="radio" name="action" id="t1" value="0" checked onchange="getFlight(); "/> <label for="track"> UTC</label>
-                <input type="radio" name="action" id="t2" value="1" onchange="getFlight();" /> <label for="event"> Local</label>
+                <input type="radio" name="action" id="t1" value="0"  onchange="getFlight(); "/> <label for="track"> UTC</label>
+                <input type="radio" name="action" id="t2" value="1" checked onchange="getFlight();" /> <label for="event"> Local</label>
 
               </fieldset>
 
