@@ -273,7 +273,7 @@ function getSupervisorlist() {
         success: function (result) {
             $("#supervisor tr").remove();
             $.each(result, function (i, item) {
-                $("<tr style='text-align:center;' idSup='" + result[i].id + "' onclick='trSupervisor(this)'>").html("<td >" + result[i].fullName + "</td>").appendTo("#supervisor tbody");
+                $("<tr style='text-align:center;' idSup='" + result[i].id + "' onclick='trSupervisor(this)'>").html("<td style='text-align: left;border: 1px solid #dddddd;padding:0 5px' >" + result[i].fullName + "</td>").appendTo("#supervisor tbody");
 
             });
         },

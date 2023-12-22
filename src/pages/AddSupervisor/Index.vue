@@ -208,7 +208,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group" id="supervisor" >
-                    <table class=" table-bordered" style="border: 1px solid #dddddd;">
+                    <table class="" style="border: 1px solid #dddddd;">
                       <thead>
                       <tr>
                         <td>Supervisor</td>
