@@ -240,11 +240,9 @@ function modalOpenSupervisor(e) {
     }
     getSupervisorlist();
 }
-
 function hide() {
     $("#myModal").fadeOut();
 }
-
 function getshiftlist() {
 
     $.ajax({
@@ -263,7 +261,6 @@ function getshiftlist() {
         }
     });
 }
-
 function getSupervisorlist() {
     let shift_id = $("#shift option:selected").attr("id");
     $.ajax({
@@ -274,10 +271,10 @@ function getSupervisorlist() {
             shift_id: shift_id
         },
         success: function (result) {
-            $("#supervisor option").remove();
-
+            $("#supervisor tr").remove();
             $.each(result, function (i, item) {
-                $("<option style='text-align:center;' id='" + result[i].id + "'>" + result[i].fullName + "</option>").appendTo("#supervisor");
+                $("<tr style='text-align:center;' idSup='" + result[i].id + "' onclick='trSupervisor(this)'>").html("<td >" + result[i].fullName + "</td>").appendTo("#supervisor tbody");
+
             });
         },
         failure: function (jqXHR, textStatus, errorThrown) {
@@ -285,9 +282,13 @@ function getSupervisorlist() {
         }
     });
 }
-
+let employeeId;
+function  trSupervisor(e){
+    $("#supervisor tbody tr").css("background","white")
+    $(e).css("background","#9ecd9e")
+     employeeId = $(e).attr("idSup");
+}
 function saveSupervisorToFlight() {
-    let employeeId = $("#supervisor option:selected").attr("colspanId");
 
     $.ajax({
         url: 'https://apifm.asg.az/api/employeeservice/add',
@@ -317,8 +318,6 @@ function saveSupervisorToFlight() {
         }
     });
 }
-
-
 function getShiftPlanList() {
 
     let date = $("#fromSt").val();

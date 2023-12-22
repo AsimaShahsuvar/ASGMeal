@@ -207,11 +207,18 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="supervisor" class="form-label ">Supervisor</label>
-                    <select class="form-select" id="supervisor" >
+                  <div class="form-group" id="supervisor" >
+                    <table class=" table-bordered" style="border: 1px solid #dddddd;">
+                      <thead>
+                      <tr>
+                        <td>Supervisor</td>
+                      </tr>
+                      </thead>
+                      <tbody>
 
-                    </select>
+                      </tbody>
+                    </table>
+
                   </div>
                 </div>
               </div>
