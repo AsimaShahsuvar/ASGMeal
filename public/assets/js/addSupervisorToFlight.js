@@ -15,6 +15,7 @@ $("#document").ready(function () {
     todayMinute = today.getMinutes();
     getshiftlist();
     getSupervisorlist();
+    getShiftPlanList();
 })
 
 function prevBtn(p) {
@@ -41,6 +42,7 @@ function prevBtn(p) {
     $('#fromSt').val(date3.getFullYear().toString() + "-" + twoDigitMonth + "-" + datetime);
     var inputDate = $("#fromSt").val();
     getFlight();
+    getShiftPlanList();
 }
 
 Date.prototype.toDateInputValue = (function () {
@@ -54,7 +56,7 @@ function getFlight() {
     swal({
         title: "Please wait!",
         text: "Page is loading",
-         imageUrl: '/assets/loading.gif',
+        imageUrl: '/assets/loading.gif',
         showConfirmButton: false
     });
     var checked = []
@@ -90,7 +92,7 @@ function getFlight() {
                 "end_to": date,
                 "status": checked,
                 "isLocal": islocal,
-                service_id:2
+                service_id: 2
             }
         ),
         success: function (result) {
@@ -100,7 +102,7 @@ function getFlight() {
             $("#flight tbody tr").remove();
             $.each(result, function (i, item) {
                 let td = '';
-                let img="";
+                let img = "";
                 for (let a = 1; a < 1440; a++) {
 
                     td += `<td  id="${'a' + item.row + '_' + a}" style="background:transparent" ></td>`;
@@ -112,10 +114,10 @@ function getFlight() {
                 $(`<tr style='height:5px!important;box-shadow:inset -5px 3px 6px 1px #efefef'>`).html(`<td  colspan='1440'></td>`).appendTo(`#flight tbody`)
 
                 $.each(item.data, function (i, item2) {
-                    if(item2.hasService === true){
-                        img="<img  style='width: 18px;' src='/assets/image/icons-08-01.png'/>";
-                    }else{
-                        img="";
+                    if (item2.hasService === true) {
+                        img = "<img  style='width: 18px;' src='/assets/image/icons-08-01.png'/>";
+                    } else {
+                        img = "";
                     }
                     if (item2.status === 1) {
                         status = "/assets/takeoff.png"
@@ -171,7 +173,7 @@ function getFlight() {
                         "colspan": diffCols,
                         "id": item2.id,
 
-                        "onclick": "modalOpenSupervisor("+item2.id+");",
+                        "onclick": "modalOpenSupervisor(" + item2.id + ");",
                     }).css({"background": `${color}`}).html(`<span class="custom info">
      <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
    <p> Type: ${item2.aC_type}</p>
@@ -199,125 +201,13 @@ function getFlight() {
 a = 0;
 let time1, time2;
 
-function thClick(e) {
-
-    $(e).css("background-color", "rgb(255, 0, 0)");
-
-    $(".allThClass th").each(function () {
-        if ($(this).css("background-color") === "rgb(255, 0, 0)") {
-            a = a + 1;
-            if (a === 1) {
-                time1 = $(e).text();
-                console.log("test");
-            }
-            if (a === 2) {
-                time2 = $(e).text();
-                console.log("test2");
-                return false;
-            }
-        }
-        if (a > 2) {
-            $(".allThClass th").css("background-color", "rgb(0 58 112)");
-            a = 0;
-            time1 = "";
-            time2 = "";
-
-        }
-
-
-    })
-
-    console.log(a, time1, time2);
-}
-
-function downloadExcelFile() {
-    var checked = []
-    if (time1 != '' && time2 != '') {
-
-
-        // Your data to send to the API
-        const yourData = { /* Your data object */};
-        let status1, status2, status3, islocal;
-        // swal({
-        //     title: "Please wait!",
-        //     //text: "Page is loading",
-        //     imageUrl: '/assets/loading.gif',
-        //     showConfirmButton: false
-        // });
-
-        console.log(islocal);
-        if ($('#t2').is(':checked')) {
-            islocal = true
-        } else if ($('#t1').is(':checked')) {
-            islocal = false
-
-        }
-        // console.log(islocal);
-
-        $("input[name='options[]']:checked").each(function () {
-            checked.push(parseInt($(this).val()));
-        });
-        // console.log(checked);
-        let eq_start, eq_end;
-        // console.log(array.data)
-        let flightsDiv = '';
-        let letiv = '';
-        let td = '';
-        let date = $("#fromSt").val();
-
-        // API endpoint URL
-        const apiUrl = 'https://apiazal.asg.az/api/flight/exportexcellist';
-
-        // Your request payload
-        const requestData = {
-            "st_from": date + 'T' + time1,
-            "end_to": date + 'T' + time2,
-            "status": checked,
-            "isLocal": islocal
-        };
-
-        // Make a POST request to the API
-        fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestData)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.blob();
-            })
-            .then(blob => {
-                // Create a download link
-                const link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.setAttribute('download', 'example.xlsx');
-
-                // Append the link to the body
-                document.body.appendChild(link);
-
-                // Simulate a click on the link to trigger the download
-                link.click();
-
-                // Remove the link from the body
-                document.body.removeChild(link);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while processing your request. Please try again.');
-            });
-    }
-}
-
 let trtdId;
+
 function modalOpenSupervisor(id) {
     $("#myModal").addClass("in");
     $("#myModal").fadeIn();
 
-    trtdId=id;
+    trtdId = id;
 }
 
 function hide() {
@@ -330,7 +220,7 @@ function getshiftlist() {
         url: 'https://apifm.asg.az/api/Employee/getshiftlist ',
         type: 'GET',
         dataType: 'json',
-      success: function (result) {
+        success: function (result) {
             $("#shift option").remove();
             $("<option style='text-align:center;' id='0'>All shift</option>").appendTo("#shift");
             $.each(result, function (i, item) {
@@ -342,14 +232,15 @@ function getshiftlist() {
         }
     });
 }
+
 function getSupervisorlist() {
-    let shift_id= $("#shift option:selected").attr("id");
+    let shift_id = $("#shift option:selected").attr("id");
     $.ajax({
         url: 'https://apifm.asg.az/api/Employee/getemployeelist',
         type: 'GET',
         dataType: 'json',
-        data:{
-            shift_id:shift_id
+        data: {
+            shift_id: shift_id
         },
         success: function (result) {
             $("#supervisor option").remove();
@@ -365,7 +256,7 @@ function getSupervisorlist() {
 }
 
 function saveSupervisorToFlight() {
-   let employeeId= $("#supervisor option:selected").attr("id");
+    let employeeId = $("#supervisor option:selected").attr("id");
 
     $.ajax({
         url: 'https://apifm.asg.az/api/employeeservice/add',
@@ -374,12 +265,12 @@ function saveSupervisorToFlight() {
         data: JSON.stringify(
             {
                 flightId: trtdId,
-                serviceId:2,
-                employeeId:employeeId
+                serviceId: 2,
+                employeeId: employeeId
             }
         ),
-        success: function (result){
-            $("#"+trtdId).prepend("<img style='width: 18px;' src='/assets/image/icons-08-01.png'/>")
+        success: function (result) {
+            $("#" + trtdId).prepend("<img style='width: 18px;' src='/assets/image/icons-08-01.png'/>")
             swal({
                 title: "Good job!",
                 text: "Supervisor has been linked to flight",
@@ -389,6 +280,53 @@ function saveSupervisorToFlight() {
             });
             hide();
 
+        },
+        failure: function (jqXHR, textStatus, errorThrown) {
+            alert("error"); // Display error message
+        }
+    });
+}
+
+
+function getShiftPlanList() {
+
+    let date = $("#fromSt").val();
+    $.ajax({
+        url: 'https://apifm.asg.az/api/Employee/getshiftplanlist',
+        type: 'GET',
+        contentType: "application/json",
+            dataType: 'json',
+        data: {
+            "st_from": date,
+            "end_to": date
+
+        },
+        success: function (result) {
+            $(result).each(function () {
+            let a_reng='yasil';
+          let  b_reng="blue";
+           let c_reng="purple";
+            if(result[0].shift==1) a_reng='red';
+            else if(result[0].shift==2)a_reng='blue';
+            else if(result[0].shift==3)a_reng='purple';
+            else a_reng='green';
+
+                if(result[1].shift==1) b_reng='red';
+                else if(result[1].shift==2)b_reng='blue';
+                else if(result[1].shift==3)b_reng='purple';
+                else b_reng='green';
+
+
+                if(result[2].shift==1) c_reng='red';
+                else if(result[2].shift==2)c_reng='blue';
+                else if(result[2].shift==3)c_reng='purple';
+                else c_reng='green';
+
+                $(".thclass.shift_a").css("background",a_reng);
+                $(".thclass.shift_b").css("background",b_reng);
+                $(".thclass.shift_c").css("background",c_reng);
+
+        });
         },
         failure: function (jqXHR, textStatus, errorThrown) {
             alert("error"); // Display error message
