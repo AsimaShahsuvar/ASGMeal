@@ -16,8 +16,12 @@ $("#document").ready(function () {
     getshiftlist();
     getSupervisorlist();
     getShiftPlanList();
-})
 
+
+})
+let a_shift;
+let b_shift;
+let c_shift;
 function prevBtn(p) {
     let date1 = document.getElementById('fromSt').value;
     let date = new Date(date1);
@@ -170,11 +174,11 @@ function getFlight() {
 
 
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");
-                    $(`#${'a' + item.row + '_' + t}`).addClass("tool").attr({
+                    $(`#${'a' + item.row + '_' + (t-diffCols)}`).addClass("tool").attr({
                         "colspan": diffCols,
-                        "id": item2.id,
+                        "colspanId": item2.id,
 
-                        "onclick": "modalOpenSupervisor(" + item2.id + ");",
+                        "onclick": "modalOpenSupervisor(this);",
                     }).css({"background": `${color}`}).html(`<span class="custom info">
      <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
    <p> Type: ${item2.aC_type}</p>
@@ -198,17 +202,43 @@ function getFlight() {
         }
     });
 }
-
+let select_shift;
 a = 0;
 let time1, time2;
 
 let trtdId;
-
-function modalOpenSupervisor(id) {
+let colspan;
+function modalOpenSupervisor(e) {
     $("#myModal").addClass("in");
     $("#myModal").fadeIn();
-
-    trtdId = id;
+    colspan=$(e).attr("id")
+    console.log("colspan "+ colspan)
+    colspan=colspan.substring(colspan.indexOf('_')+1);
+    console.log("colspan "+ colspan)
+        if(colspan<481){
+            select_shift=a_shift;
+         }
+    if(colspan>481 && colspan<1200){
+        select_shift=b_shift;
+    }
+    if(colspan>1200 && colspan<1440 ){
+        select_shift=c_shift;
+    }
+    console.log("select_shift "+select_shift);
+    trtdId = $(e).attr("colspanId");
+        if(select_shift === 1){
+    $("#shift option[value='Növbə 1']").attr("selected","selected");
+    console.log("Ff")
+        }
+    if(select_shift === 2){
+        $("#shift option[value='Növbə 2']").attr("selected","selected");
+    }
+    if(select_shift === 3){
+        $("#shift option[value='Növbə 3']").attr("selected","selected");
+    }if(select_shift === 4){
+        $("#shift option[value='Növbə 4']").attr("selected","selected");
+    }
+    getSupervisorlist();
 }
 
 function hide() {
@@ -225,7 +255,7 @@ function getshiftlist() {
             $("#shift option").remove();
             $("<option style='text-align:center;' id='0'>All shift</option>").appendTo("#shift");
             $.each(result, function (i, item) {
-                $("<option style='text-align:center;' id='" + result[i].id + "'>" + result[i].description + "</option>").appendTo("#shift");
+                $("<option style='text-align:center;' id='" + result[i].id + "' value='"+ result[i].description +"'>" + result[i].description + "</option>").appendTo("#shift");
             });
         },
         failure: function (jqXHR, textStatus, errorThrown) {
@@ -257,7 +287,7 @@ function getSupervisorlist() {
 }
 
 function saveSupervisorToFlight() {
-    let employeeId = $("#supervisor option:selected").attr("id");
+    let employeeId = $("#supervisor option:selected").attr("colspanId");
 
     $.ajax({
         url: 'https://apifm.asg.az/api/employeeservice/add',
@@ -307,6 +337,9 @@ function getShiftPlanList() {
             let a_reng='yasil';
           let  b_reng="blue";
            let c_reng="purple";
+           a_shift=result[0].shift;
+           b_shift=result[1].shift;
+           c_shift=result[2].shift;
             if(result[0].shift==1) a_reng='red';
             else if(result[0].shift==2)a_reng='blue';
             else if(result[0].shift==3)a_reng='purple';

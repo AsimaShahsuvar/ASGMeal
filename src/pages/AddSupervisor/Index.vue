@@ -100,7 +100,7 @@
           <th colspan="15" onclick="thClick(this)" class="thclass shift_a">07:30</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_a">07:45</th>
 
-          <th colspan="15" onclick="thClick(this)" class="thclass shift_a">08:00</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass shift_b">08:00</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_b">08:15</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_b">08:30</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_b">08:45</th>
@@ -155,7 +155,7 @@
           <th colspan="15" onclick="thClick(this)" class="thclass shift_b">19:30</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_b">19:45</th>
 
-          <th colspan="15" onclick="thClick(this)" class="thclass shift_b">20:00</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass shift_c">20:00</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_c">20:15</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_c">20:30</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_c">20:45</th>
