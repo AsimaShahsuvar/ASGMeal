@@ -61,7 +61,7 @@
 
         <tr class="allThClass">
           <th colspan="1" class="sticky-col first-col">...</th>
-          <th colspan="15" onclick="thClick(this)" class="thclass shift_a">00:00</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass shift_a" title="1">00:00</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_a">00:15</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_a">00:30</th>
           <th colspan="15" onclick="thClick(this)" class="thclass shift_a">00:45</th>

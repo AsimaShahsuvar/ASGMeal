@@ -42,7 +42,7 @@ function prevBtn(p) {
     $('#fromSt').val(date3.getFullYear().toString() + "-" + twoDigitMonth + "-" + datetime);
     var inputDate = $("#fromSt").val();
     getFlight();
-    getShiftPlanList();
+
 }
 
 Date.prototype.toDateInputValue = (function () {
@@ -53,6 +53,7 @@ Date.prototype.toDateInputValue = (function () {
 });
 
 function getFlight() {
+    getShiftPlanList();
     swal({
         title: "Please wait!",
         text: "Page is loading",
