@@ -289,20 +289,20 @@ function  trSupervisor(e){
      employeeId = $(e).attr("idSup");
 }
 function saveSupervisorToFlight() {
-
+        console.log("trtdId "+colspanId)
     $.ajax({
         url: 'https://apifm.asg.az/api/employeeservice/add',
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify(
             {
-                flightId: trtdId,
+                flightId: colspanId,
                 serviceId: 2,
                 employeeId: employeeId
             }
         ),
         success: function (result) {
-            $("#" + trtdId).prepend("<img style='width: 18px;' src='/assets/image/icons-08-01.png'/>")
+            $("#" + colspanId).prepend("<img style='width: 18px;' src='/assets/image/icons-08-01.png'/>")
             swal({
                 title: "Good job!",
                 text: "Supervisor has been linked to flight",
