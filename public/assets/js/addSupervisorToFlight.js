@@ -246,7 +246,7 @@ function hide() {
 function getshiftlist() {
 
     $.ajax({
-        url: 'https://apifm.asg.az/api/Employee/getshiftlist ',
+        url: 'https://apifm.asg.az/api/EmployeeWorkFlow/getshiftlist ',
         type: 'GET',
         dataType: 'json',
         success: function (result) {
@@ -264,7 +264,7 @@ function getshiftlist() {
 function getSupervisorlist() {
     let shift_id = $("#shift option:selected").attr("id");
     $.ajax({
-        url: 'https://apifm.asg.az/api/Employee/getemployeelist',
+        url: 'https://apifm.asg.az/api/EmployeeWorkFlow/getemployeelist',
         type: 'GET',
         dataType: 'json',
         data: {
@@ -289,20 +289,20 @@ function  trSupervisor(e){
      employeeId = $(e).attr("idSup");
 }
 function saveSupervisorToFlight() {
-        console.log("trtdId "+colspanId)
+        console.log("trtdId "+trtdId)
     $.ajax({
         url: 'https://apifm.asg.az/api/employeeservice/add',
         type: 'POST',
         contentType: "application/json",
         data: JSON.stringify(
             {
-                flightId: colspanId,
+                flightId: trtdId,
                 serviceId: 2,
                 employeeId: employeeId
             }
         ),
         success: function (result) {
-            $("#" + colspanId).prepend("<img style='width: 18px;' src='/assets/image/icons-08-01.png'/>")
+            $("#" + trtdId).prepend("<img style='width: 18px;' src='/assets/image/icons-08-01.png'/>")
             swal({
                 title: "Good job!",
                 text: "Supervisor has been linked to flight",
@@ -322,7 +322,7 @@ function getShiftPlanList() {
 
     let date = $("#fromSt").val();
     $.ajax({
-        url: 'https://apifm.asg.az/api/Employee/getshiftplanlist',
+        url: 'https://apifm.asg.az/api/EmployeeWorkFlow/getshiftplanlist',
         type: 'GET',
         contentType: "application/json",
             dataType: 'json',

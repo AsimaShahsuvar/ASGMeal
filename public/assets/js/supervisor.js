@@ -160,7 +160,11 @@ function getFlight() {
 
 
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");
-                    $(`#${'a'+count + '_' + t}`).addClass("tool").attr("colspan", diffCols).css({"background": `${color}` }).html(`<span class="custom info">
+                    $(`#${'a'+count + '_' + t}`).addClass("tool").attr({
+                        "colspan": diffCols,
+                        "flightServiceId": item2.flightServiceId,
+                        "onclick": "deleteSupervisorFromFlight(this)"
+                    }).css({"background": `${color}` }).html(`<span class="custom info">
                          <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
                        <p> Type: ${item2.aC_type}</p>
                     
@@ -293,4 +297,44 @@ function downloadExcelFile() {
                 alert('An error occurred while processing your request. Please try again.');
             });
     }
+}
+
+function deleteService(){
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                deleteSupervisorFromflight();
+
+            } else {
+                swal("Your imaginary file is safe!");
+            }
+        });
+}
+
+function deleteSupervisorFromFlight(e){
+  let flightServiceId=$(e).attr("flightServiceId")
+    $.ajax({
+        url: 'https://apifm.asg.az/api/EmployeeService/delete?id='+flightServiceId+'',
+        type: 'POST',
+        success: function (result) {
+            getFlight();
+            swal({
+                title: "Good job!",
+                text: "Flight is deleted",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+
+        },
+        failure: function (jqXHR, textStatus, errorThrown) {
+            alert("error"); // Display error message
+        }
+    });
 }
