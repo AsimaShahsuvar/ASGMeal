@@ -6,7 +6,7 @@ $("#document").ready(function () {
     var day = d.getDate();
     var minute = d.getMinutes();
     var hour = d.getHours();
-    var c = new Date(year+1, month-1, day, hour, minute);
+    var c = new Date(year, month, day, hour, minute);
 
 
     $("#fromSt").val(c.toDateInputValue());
@@ -163,6 +163,16 @@ function getFlight() {
                       <p>  Id: ${item2.id}</p>
                       <p> On Board: ${item2.scT_OFB.substring(0,5)}</p>
                        <p> Off Board: ${item2.scT_ONB.substring(0,5)}</p>
+                       <p> Bag count: ${item2.bag_count}</p>
+                       <p> Bag kg: ${item2.bag_kg}</p>
+                   
+                       <p> Capacity: ${item2.capacity}</p> 
+                          <p> Hold_one: ${item2.hold_one}</p>
+                          <p> Hold two: ${item2.hold_two}</p>
+                          <p> Hold three: ${item2.hold_three}</p>
+                       <p> Holdfour: ${item2.hold_four}</p>
+                       <p> Hold five: ${item2.hold_five}</p>
+                       <p> Off Board: ${item2.scT_ONB}</p>
                       </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
 
                     // }
