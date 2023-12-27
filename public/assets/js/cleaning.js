@@ -86,7 +86,8 @@ function getFlight() {
                 "st_from": date,
                 "end_to": date,
                 "status": checked,
-                "isLocal": islocal
+                "isLocal": islocal,
+                "service_id":1
             }
         ),
         success: function (result) {

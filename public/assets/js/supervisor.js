@@ -76,7 +76,6 @@ function getFlight() {
     let td ='';
     let date=$("#fromSt").val();
     let partOfDay=$("#partOfDay").val();
-
     $.ajax({
         url: 'https://apifm.asg.az/api/flight/getemployeeworkflowlist',
         type: 'POST',
@@ -95,12 +94,12 @@ function getFlight() {
         ),
         success: function (result) {
 
-        //console.log(result);
+            //console.log(result);
             let  status,status2,route;
             let color="rgb(0, 200, 83)"
             $("#flight tbody tr").remove();
             let count = 0;
-          //  console.log(new Date);
+            console.log(new Date);
             $.each(result, function (i, item) {
                 let td ='';
                 count++;
@@ -108,8 +107,8 @@ function getFlight() {
                     td+=`<td  id="${'a'+count + '_' + a}" style="background:transparent" ></td>`;
                 }
 
-                $(`<tr class="animate__animated animate__fadeInLeft" style='position: relative'>`).html(`<td class="sticky-col first-col" style="text-align: left">${i+1}. ${item.fullName}</td><${td}`).appendTo(`#flight tbody`)
-                $(`<tr style='height:5px!important;box-shadow:inset -5px 3px 6px 1px #efefef;position: relative'>`).html(`<td  colspan='1440'></td>`).appendTo(`#flight tbody`)
+                $(`<tr class="animate__animated animate__fadeInLeft">`).html(`<td class="sticky-col first-col" style="text-align: left">${i+1}. ${item.fullName}</td><${td}`).appendTo(`#flight tbody`)
+                $(`<tr style='height:5px!important;box-shadow:inset -5px 3px 6px 1px #efefef'>`).html(`<td  colspan='1440'></td>`).appendTo(`#flight tbody`)
 
                 $.each(item.data, function (i, item2) {
                     if(item2.status === 1){
@@ -163,24 +162,23 @@ function getFlight() {
                     // $(`#${'a'+item.row + '_' + todayLine}`).css("background", "red");
                     $(`#${'a'+count + '_' + t}`).addClass("tool").attr({
                         "colspan": diffCols,
-                        "colspanid": item2.id,
                         "flightServiceId": item2.flightServiceId,
-                        "onclick": "dropdownMenu(this);",
-                        // "onclick": "deleteSupervisorFromFlight(this)"
-                  }).css({"background": `${color}` }).html(`<div class="dropdown">
-                         <ul>
-                            <li><a style="text-align: left;" onclick="infoFlight();">Info</a></li> 
-                             <li><a style="text-align: left" href="#">Move</a></li>
-                            <li><a style="text-align: left;" onclick="deleteService();">Deleted</a></li>
-                         </ul>
-                    </div>
+                        "onclick": "deleteSupervisorFromFlight(this)"
+                    }).css({"background": `${color}` }).html(`<span class="custom info">
+                         <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
+                       <p> Type: ${item2.aC_type}</p>
                     
-                      <div> ${item2.flt} ${route} </div>`);
+                      <p>  Route: ${item2.route}</p>
+                      <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
+                       <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
+                       <div class="col-md-6"><button class="btn btn-success">Move</button></div>
+                       <div class="col-md-6" ><button class="btn btn-danger" onclick="deleteService()">Delete</button></div>
+                      </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
 
                     // }
                     // $(`#${item.park+(eq_start+30)}`).html(`<div> <img style="width: 17px" src="images/landing.png">${item2.FlightLand} </div>`)
                 });
-                // console.log(new Date);
+                console.log(new Date);
             })
         },
         failure: function (jqXHR, textStatus, errorThrown) {
@@ -188,7 +186,6 @@ function getFlight() {
         }
     });
 }
-
 a=0;  let time1 ,time2;
 function thClick(e){
 
@@ -306,35 +303,31 @@ function downloadExcelFile() {
 
 function deleteService(){
     swal({
-            title: "Are you sure?",
-            text: "You will not be able to recover this imaginary file!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-        },
-        function(){
-            deleteSupervisorFromFlight();
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+                deleteSupervisorFromflight();
+
+            } else {
+                swal("Your imaginary file is safe!");
+            }
         });
-
 }
-let flightServiceId;
-function modalOpenSupervisor(e) {
-    $("#myModal").addClass("in");
-    $("#myModal").fadeIn();
-    //colspan=$(e).attr("id")
 
-}
-function deleteSupervisorFromFlight(){
-
+function deleteSupervisorFromFlight(e){
+    let flightServiceId=$(e).attr("flightServiceId")
     $.ajax({
         url: 'https://apifm.asg.az/api/EmployeeService/delete?id='+flightServiceId+'',
         type: 'POST',
         success: function (result) {
             getFlight();
-            swal({
 
+            swal({
                 title: "Good job!",
                 text: "Flight is deleted",
                 type: "success",
@@ -347,20 +340,4 @@ function deleteSupervisorFromFlight(){
             alert("error"); // Display error message
         }
     });
-}
-function hide() {
-    $("#myModal").fadeOut();
-}
-function dropdownMenu(e) {
-    let idd= $(e).attr("id");
-    flightServiceId=$(e).attr("flightServiceId")
-    console.log(idd);
-    $("td .dropdown ul").removeClass("active");
-  $("#"+idd).children(".dropdown").children("ul").toggleClass('active');
-    $("#"+idd).parent("tr").css("z-index","5")
-   // $("#"+idd).children(".dropdown").children("ul.active").css('transform',"perspective(1000px) rotateX(0deg)");
-}
-function infoFlight() {
-    $("#infoModal").addClass("in");
-    $("#infoModal").fadeIn();
 }
