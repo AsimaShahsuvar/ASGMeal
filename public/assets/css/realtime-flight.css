@@ -69,7 +69,7 @@ tbody > tr:hover {
 }
 .tool {
     font-size: 12px;
-}
+ }
 tbody > tr > .tool:hover {
     -webkit-transform: translateY(0) scale(0.99);
     color: white;
@@ -78,7 +78,7 @@ tbody > tr > .tool:hover {
 }
 tbody > tr {
     transition: all 500ms;
-    position: sticky;
+
 }
 .panel-default {
     border-color: #ddd;
@@ -148,10 +148,10 @@ tbody > tr {
 .help { background: #9FDAEE; border: 1px solid #2BB0D7;	}
 .info {background: #003a70d6; border: 1px solid #2BB0D7;	}
 .warning { background: #FFFFAA; border: 1px solid #FFAD33; }
-.tool:hover {
-    z-index: -1;
-    position: relative;
-}
+/*.tool:hover {*/
+/*    z-index: -1;*/
+/*    position: relative;*/
+/*}*/
 .tool div {
     display: inline-block;
     padding-left: 3px;

@@ -5,14 +5,48 @@
       <!--            <div class="panel-heading">Panel Heading</div>-->
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-2">
+
+          <div class="col-md-3" style="display: inherit;column-gap: 7px;">
+
             <div class="form-group">
-              <input type="date" class="form-control" id="fromSt">
+              <input type="date" class="form-control" id="fromSt" onchange="getFlight();">
+            </div>
+            <button class="btn btn-primary" onclick="prevBtn('-')">Prev</button>
+            <button class="btn btn-primary" onclick="prevBtn('+')">Next</button>
+          </div>
+          <div class="col-md-2">
+
+            <div class="terminal">
+              <label>
+                <input type="checkbox" value="0" name="options[]" id="dep"  checked="true" onchange="getFlight();"><span class="label-text">Arrival</span>
+              </label>
+              <label>
+                <input type="checkbox" value="1" name="options[]"  id="arr" checked="true" onchange="getFlight();"><span class="label-text">DEP</span>
+              </label>
+              <label>
+                <input type="checkbox" value="2" name="options[]"  id="tra" checked="true" onchange="getFlight();"><span class="label-text">Tranzit</span>
+              </label>
+
             </div>
           </div>
-          <div class="col-md-1">
-            <button class="btn btn-primary" onclick="getFlight();">Search</button>
+
+          <div class="col-md-2">
+            <div class="terminal">
+              <fieldset style="display: inline-block">
+
+                <input type="radio" name="action" id="t1" value="0"  onchange="getFlight(); "/> <label for="track"> UTC</label>
+                <input type="radio" name="action" id="t2" value="1" checked onchange="getFlight();" /> <label for="event"> Local</label>
+
+              </fieldset>
+
+            </div>
           </div>
+
+<!--          <div class="col-md-1">-->
+<!--            <button class="btn btn-primary "   onclick="downloadExcelFile();">Excel</button>-->
+<!--          </div>-->
+
+
         </div>
       </div>
     </div>
@@ -110,10 +144,10 @@
           <th colspan="15" onclick="thClick(this)" class="thclass">17:30</th>
           <th colspan="15" onclick="thClick(this)" class="thclass">17:45</th>
 
-          <th colspan="15" onclick="thClick(this)" class="thclass">18:00</th>
-          <th colspan="15" onclick="thClick(this)" class="thclass">18:15</th>
-          <th colspan="15" onclick="thClick(this)" class="thclass">18:30</th>
-          <th colspan="15" onclick="thClick(this)" class="thclass">18:45</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass" >18:00</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass" >18:15</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass" >18:30</th>
+          <th colspan="15" onclick="thClick(this)" class="thclass" >18:45</th>
 
           <th colspan="15" onclick="thClick(this)" class="thclass">19:00</th>
           <th colspan="15" onclick="thClick(this)" class="thclass">19:15</th>
@@ -150,19 +184,19 @@
     </div>
   </div>
 </template>
-
 <script>
 
-export default {
+import Departure from "@/pages/flights/Departure.vue";
 
+export default {
+  components: {Departure},
   mounted() {
     let Script = document.createElement("script");
-    Script.setAttribute("src", "/assets/js/dispatcher.js");
+    Script.setAttribute("src", "/assets/js/xboxFlight.js");
     document.head.appendChild(Script);
   }
 };
 </script>
-
 <style>
 tbody > tr {
   transition: all 500ms;

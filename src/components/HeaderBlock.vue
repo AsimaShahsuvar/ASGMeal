@@ -36,6 +36,9 @@
           <a class="nav-link" href="/addsupervisor"><i class="fa fa-plane" aria-hidden="true"></i>Add Supervisor to
             Flight</a>
         </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/xboxlist"><i class="fa fa-plane" aria-hidden="true"></i>XBOX Flight</a>
+        </li>
 
       </ul>
     </div>

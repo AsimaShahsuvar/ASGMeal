@@ -197,3 +197,10 @@ export default {
 };
 </script>
 
+<style>
+tbody > tr {
+transition: all 500ms;
+position: sticky;
+}
+</style>
+

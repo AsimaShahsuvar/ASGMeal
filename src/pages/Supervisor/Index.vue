@@ -1,4 +1,33 @@
 <template>
+  <div class="modal" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">.....</h4>
+          <button type="button" class="close" onclick="hide()" style="float: right">&times;</button>
+
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <button type="button" class="btn btn-success">Move</button>
+
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-danger" onclick="deleteSupervisorFromFlight(id)"> Delete Flight</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
   <div class="container-fluid">
 
     <div class="panel panel-default">
@@ -207,3 +236,82 @@ export default {
 };
 </script>
 
+<style>
+.dropdown{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  z-index: 999999999;
+
+}
+
+
+.dropdown ul{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 120px;
+  background: #ccc;
+  transform-origin: top;
+  transform: perspective(1000px) rotateX(-90deg);
+  transition: 0.5s;
+}
+
+
+.dropdown ul li {
+  list-style: none;
+}
+
+.dropdown ul li a {
+  display:block;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  background: #003a70;
+  color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0,.2);
+  transition: 0.5s;
+}
+.dropdown ul.active{
+  transform: perspective(1000px) rotateX(0deg);
+}
+.dropdown ul li a:hover{
+  background: #0d7ad0;
+}
+.close {
+  float: right;
+  border: none;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .2;
+}
+
+.modal-title {
+  font-size: 21px;
+}
+
+.modal.in {
+  background-color: rgba(0, 0, 0, 58%); /* Adjust the opacity as needed */
+}
+
+.modal-content {
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+}
+
+tbody > tr:hover {
+  z-index: 2;
+}
+.tool {
+
+  z-index: -1;
+
+}
+
+</style>
