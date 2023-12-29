@@ -163,7 +163,7 @@ function getFlight() {
                     $(`#${'a'+count + '_' + t}`).addClass("tool").attr({
                         "colspan": diffCols,
                         "flightServiceId": item2.flightServiceId,
-                        "onclick": "deleteSupervisorFromFlight(this)"
+
                     }).css({"background": `${color}` }).html(`<span class="custom info">
                          <img src="/assets/icon.png" alt="Information" height="48" width="48" data-pin-nopin="true">
                        <p> Type: ${item2.aC_type}</p>
@@ -172,7 +172,7 @@ function getFlight() {
                       <p> Block on: ${item2.scT_OFB.substring(0,5)}</p>
                        <p> Block Off : ${item2.scT_ONB.substring(0,5)}</p>
                        <div class="col-md-6"><button class="btn btn-success">Move</button></div>
-                       <div class="col-md-6" ><button class="btn btn-danger" onclick="deleteService()">Delete</button></div>
+                       <div class="col-md-6" ><button class="btn btn-danger" onclick="deleteService(${item2.flightServiceId})">Delete</button></div>
                       </span><div style="margin-left: 0"></div><div> ${item2.flt} ${route} </div>`);
 
                     // }
@@ -301,28 +301,26 @@ function downloadExcelFile() {
     }
 }
 
-function deleteService(){
+function deleteService(id){
     swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this file!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-    })
-        .then((willDelete) => {
-            if (willDelete) {
-                deleteSupervisorFromflight();
-
-            } else {
-                swal("Your imaginary file is safe!");
-            }
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        },
+        function(){
+            deleteSupervisorFromFlight(id);
         });
+
 }
 
-function deleteSupervisorFromFlight(e){
-    let flightServiceId=$(e).attr("flightServiceId")
+function deleteSupervisorFromFlight(id){
+
     $.ajax({
-        url: 'https://apifm.asg.az/api/EmployeeService/delete?id='+flightServiceId+'',
+        url: 'https://apifm.asg.az/api/EmployeeService/delete?id='+id+'',
         type: 'POST',
         success: function (result) {
             getFlight();
