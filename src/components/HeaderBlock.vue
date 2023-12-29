@@ -12,26 +12,26 @@
           <div class="right"></div>
         </div>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/checkin"><i class="fa fa-car" aria-hidden="true"></i>Checkin</a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/checkin"><i class="fa fa-car" aria-hidden="true"></i>Checkin</a>-->
+<!--        </li>-->
         <li class="nav-item">
           <a class="nav-link" href="/realflight"><i class="fa fa-home" aria-hidden="true"></i>Ramp</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/dispatcher"><i class="fa fa-plane" aria-hidden="true"></i>Dispatcher</a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/dispatcher"><i class="fa fa-plane" aria-hidden="true"></i>Dispatcher</a>-->
+<!--        </li>-->
         <li class="nav-item">
           <a class="nav-link" href="/supervisor"><i class="fa fa-plane" aria-hidden="true"></i>Supervisor</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/cleaning"><i class="fa fa-plane" aria-hidden="true"></i>Cleaning</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/pushback"><i class="fa fa-plane" aria-hidden="true"></i>PushBack</a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/cleaning"><i class="fa fa-plane" aria-hidden="true"></i>Cleaning</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/pushback"><i class="fa fa-plane" aria-hidden="true"></i>PushBack</a>-->
+<!--        </li>-->
         <li class="nav-item">
           <a class="nav-link" href="/addsupervisor"><i class="fa fa-plane" aria-hidden="true"></i>Add Supervisor to
             Flight</a>

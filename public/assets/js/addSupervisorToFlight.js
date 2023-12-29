@@ -7,7 +7,7 @@ $("#document").ready(function () {
     var day = d.getDate();
     var minute = d.getMinutes();
     var hour = d.getHours();
-    var c = new Date(year + 1, month - 1, day, hour, minute);
+    var c = new Date(year, month, day, hour, minute);
     $("#fromSt").val(c.toDateInputValue());
     var today = new Date();
     // console.log(today.getHours()+":"+today.getMinutes())
@@ -86,7 +86,7 @@ function getFlight() {
     let td = '';
     let date = $("#fromSt").val();
     $.ajax({
-        url: 'https://apifm.asg.az/api/flight/getflightlist',
+        url: 'https://apifm.asg.az/api/flight/getflightxboxlist',
         type: 'POST',
         dataType: 'json',
         contentType: "application/json",
@@ -302,7 +302,7 @@ function saveSupervisorToFlight() {
             }
         ),
         success: function (result) {
-            $("#" + trtdId).prepend("<img style='width: 18px;' src='/assets/image/icons-08-01.png'/>")
+
             swal({
                 title: "Good job!",
                 text: "Supervisor has been linked to flight",
@@ -311,6 +311,7 @@ function saveSupervisorToFlight() {
                 timer: 2000,
             });
             hide();
+            getFlight();
 
         },
         failure: function (jqXHR, textStatus, errorThrown) {

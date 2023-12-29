@@ -24,7 +24,7 @@
                 <input type="checkbox" value="1" name="options[]"  id="arr" checked="true" onchange="getFlight();"><span class="label-text">DEP</span>
               </label>
               <label>
-                <input type="checkbox" value="2" name="options[]"  id="tra" checked="true" onchange="getFlight();"><span class="label-text">Tranzit</span>
+                <input type="checkbox" value="3" name="options[]"  id="tra" checked="true" onchange="getFlight();"><span class="label-text">Tranzit</span>
               </label>
 
             </div>

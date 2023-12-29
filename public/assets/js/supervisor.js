@@ -326,7 +326,6 @@ function deleteSupervisorFromFlight(e){
         type: 'POST',
         success: function (result) {
             getFlight();
-
             swal({
                 title: "Good job!",
                 text: "Flight is deleted",
