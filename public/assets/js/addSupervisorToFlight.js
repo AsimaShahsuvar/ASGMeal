@@ -16,7 +16,7 @@ $("#document").ready(function () {
     getshiftlist();
     getSupervisorlist();
     getShiftPlanList();
-
+    getFlight();
 
 })
 let a_shift;
