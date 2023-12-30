@@ -122,7 +122,7 @@ function getFlight() {
                         color="rgb(176, 190, 197)";
                         status2="";
                         route = item2.route
-                    } if(item2.status === 2){
+                    } if(item2.status === 3){
                         status="/assets/landing.png"
                         status2 = `<img width="17px"  src="/assets/takeoff.png">`
                         color="rgb(3, 155, 229)"
