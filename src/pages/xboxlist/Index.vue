@@ -43,10 +43,13 @@
 
             <div class="terminal">
               <label>
-                <input type="checkbox" value="0" name="optionTerminal[]" id="t1"  checked="true" onchange="getFlight();"><span class="label-text">T1</span>
+                <input type="checkbox" value="0" name="optionTerminal[]" id="noneterminal"  checked="true" onchange="getFlight();"><span class="label-text">None </span>
               </label>
               <label>
-                <input type="checkbox" value="1" name="optionTerminal[]"  id="t2" checked="true" onchange="getFlight();"><span class="label-text">T2</span>
+                <input type="checkbox" value="1" name="optionTerminal[]" id="t1"  checked="true" onchange="getFlight();"><span class="label-text">T1</span>
+              </label>
+              <label>
+                <input type="checkbox" value="2" name="optionTerminal[]"  id="t2" checked="true" onchange="getFlight();"><span class="label-text">T2</span>
               </label>
                          </div>
           </div>

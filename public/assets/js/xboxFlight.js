@@ -58,10 +58,10 @@ function getFlight() {
     let status1,status2,status3,islocal;
 
     if ($('#utc').is(':checked')) {
-        islocal = true
+        islocal = false
     }
     else if ($('#local').is(':checked')) {
-        islocal = false
+        islocal = true
     }
     // if ($('#t1').is(':checked')) {
     //     terms = true
