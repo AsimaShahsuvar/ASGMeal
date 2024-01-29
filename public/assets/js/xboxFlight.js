@@ -52,21 +52,41 @@ Date.prototype.toDateInputValue = (function () {
 
 function getFlight() {
     var checked = []
+    var isInternational = []
+    var terminal = []
+
     let status1,status2,status3,islocal;
 
-    if ($('#t2').is(':checked')) {
+    if ($('#utc').is(':checked')) {
         islocal = true
     }
-    else if ($('#t1').is(':checked')) {
+    else if ($('#local').is(':checked')) {
         islocal = false
-
     }
+    // if ($('#t1').is(':checked')) {
+    //     terms = true
+    // }
+    // else if ($('#t2').is(':checked')) {
+    //     terms = false
+    // }
+
+
     // console.log(islocal);
 
     $("input[name='options[]']:checked").each(function ()
     {
         checked.push(parseInt($(this).val()));
     });
+     $("input[name='optionTerminal[]']:checked").each(function ()
+    {
+        terminal.push(parseInt($(this).val()));
+    });
+     $("input[name='optionFlightType[]']:checked").each(function ()
+    {
+        isInternational.push(parseInt($(this).val()));
+    });
+
+
     // console.log(checked);
     let eq_start,eq_end;
     // console.log(array.data)
@@ -85,7 +105,9 @@ function getFlight() {
                 "st_from": date,
                 "end_to": date,
                 "status": checked,
-                "isLocal": islocal
+                "isLocal": islocal,
+                "isInternational":isInternational,
+                "terminal":terminal
             }
         ),
         success: function (result) {
@@ -236,9 +258,9 @@ function downloadExcelFile() {
         // });
 
         console.log(islocal);
-        if ($('#t2').is(':checked')) {
+        if ($('#utc').is(':checked')) {
             islocal = true
-        } else if ($('#t1').is(':checked')) {
+        } else if ($('#local').is(':checked')) {
             islocal = false
 
         }

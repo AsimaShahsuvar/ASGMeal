@@ -16,7 +16,7 @@
           </div>
           <div class="col-md-2">
 
-            <div class="terminal">
+          <div class="terminal">
               <label>
                 <input type="checkbox" value="0" name="options[]" id="dep"  checked="true" onchange="getFlight();"><span class="label-text">Arrival</span>
               </label>
@@ -33,20 +33,34 @@
           <div class="col-md-2">
             <div class="terminal">
               <fieldset style="display: inline-block">
-
-                <input type="radio" name="action" id="t1" value="0"  onchange="getFlight(); "/> <label for="track"> UTC</label>
-                <input type="radio" name="action" id="t2" value="1" checked onchange="getFlight();" /> <label for="event"> Local</label>
-
+                <input type="radio" name="action" id="utc" value="0"  onchange="getFlight(); "/> <label for="track"> UTC</label>
+                <input type="radio" name="action" id="local" value="1" checked onchange="getFlight();" /> <label for="event"> Local</label>
               </fieldset>
 
             </div>
           </div>
+          <div class="col-md-2">
 
-<!--          <div class="col-md-1">-->
-<!--            <button class="btn btn-primary "   onclick="downloadExcelFile();">Excel</button>-->
-<!--          </div>-->
+            <div class="terminal">
+              <label>
+                <input type="checkbox" value="0" name="optionTerminal[]" id="t1"  checked="true" onchange="getFlight();"><span class="label-text">T1</span>
+              </label>
+              <label>
+                <input type="checkbox" value="1" name="optionTerminal[]"  id="t2" checked="true" onchange="getFlight();"><span class="label-text">T2</span>
+              </label>
+                         </div>
+          </div>
+          <div class="col-md-2">
 
-
+            <div class="terminal">
+              <label>
+                <input type="checkbox" value="0" name="optionFlightType[]" id="domestic"  checked="true" onchange="getFlight();"><span class="label-text">Domestic</span>
+              </label>
+              <label>
+                <input type="checkbox" value="1" name="optionFlightType[]"  id="international" checked="true" onchange="getFlight();"><span class="label-text">International</span>
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
