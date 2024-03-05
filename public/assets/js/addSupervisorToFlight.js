@@ -66,7 +66,8 @@ function getFlight() {
     });
     var checked = []
     let status1, status2, status3, islocal;
-
+    var isInternational = []
+    var terminal = []
     if ($('#t2').is(':checked')) {
         islocal = true
     } else if ($('#t1').is(':checked')) {
@@ -77,6 +78,14 @@ function getFlight() {
 
     $("input[name='options[]']:checked").each(function () {
         checked.push(parseInt($(this).val()));
+    });
+    $("input[name='optionTerminal[]']:checked").each(function ()
+    {
+        terminal.push(parseInt($(this).val()));
+    });
+    $("input[name='optionFlightType[]']:checked").each(function ()
+    {
+        isInternational.push(parseInt($(this).val()));
     });
     // console.log(checked);
     let eq_start, eq_end;
@@ -97,7 +106,9 @@ function getFlight() {
                 "end_to": date,
                 "status": checked,
                 "isLocal": islocal,
-                service_id: 2
+                service_id: 2,
+                "isInternational":isInternational,
+                "terminal":terminal
             }
         ),
         success: function (result) {

@@ -53,7 +53,8 @@ Date.prototype.toDateInputValue = (function () {
 function getFlight() {
     var checked = []
     let status1,status2,status3,islocal;
-
+    var isInternational = []
+    var terminal = []
     if ($('#t2').is(':checked')) {
         islocal = true
     }
@@ -67,6 +68,15 @@ function getFlight() {
     {
         checked.push(parseInt($(this).val()));
     });
+    $("input[name='optionTerminal[]']:checked").each(function ()
+    {
+        terminal.push(parseInt($(this).val()));
+    });
+    $("input[name='optionFlightType[]']:checked").each(function ()
+    {
+        isInternational.push(parseInt($(this).val()));
+    });
+
     // console.log(checked);
     let eq_start,eq_end;
     // console.log(array.data)
@@ -85,7 +95,9 @@ function getFlight() {
                 "st_from": date,
                 "end_to": date,
                 "status": checked,
-                "isLocal": islocal
+                "isLocal": islocal,
+                "isInternational":isInternational,
+                "terminal":terminal
             }
         ),
         success: function (result) {

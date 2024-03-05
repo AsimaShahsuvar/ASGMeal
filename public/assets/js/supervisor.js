@@ -54,8 +54,8 @@ Date.prototype.toDateInputValue = (function () {
 function getFlight() {
     var checked = []
     let status1,status2,status3,islocal;
-
-
+    var terminal = []
+    var isInternational = []
     if ($('#t2').is(':checked')) {
         islocal = true
     }
@@ -69,6 +69,14 @@ function getFlight() {
     {
         checked.push(parseInt($(this).val()));
     });
+    $("input[name='optionTerminal[]']:checked").each(function ()
+    {
+        terminal.push(parseInt($(this).val()));
+    });
+    $("input[name='optionFlightType[]']:checked").each(function ()
+    {
+        isInternational.push(parseInt($(this).val()));
+    });
     // console.log(checked);
     let eq_start,eq_end;
     // console.log(array.data)
@@ -76,7 +84,7 @@ function getFlight() {
     let    letiv='';
     let td ='';
     let date=$("#fromSt").val();
-    let partOfDay=$("#partOfDay").val();
+    let partOfDay=parseInt($("#partOfDay").val());
     $.ajax({
         url: 'https://apifm.asg.az/api/flight/getemployeeworkflowlist',
         type: 'POST',
@@ -90,7 +98,9 @@ function getFlight() {
                 "status": checked,
                 "isLocal": islocal,
                 "partofday":partOfDay,
-                "service_id":2
+                "service_id":2,
+                "terminal":terminal,
+                "isInternational":isInternational,
             }
         ),
         success: function (result) {

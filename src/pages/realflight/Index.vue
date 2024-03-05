@@ -41,7 +41,31 @@
 
             </div>
           </div>
+          <div class="col-md-2">
 
+            <div class="terminal">
+              <label>
+                <input type="checkbox" value="0" name="optionTerminal[]" id="noneterminal"  checked="true" onchange="getFlight();"><span class="label-text">None </span>
+              </label>
+              <label>
+                <input type="checkbox" value="1" name="optionTerminal[]" id="t1"  checked="true" onchange="getFlight();"><span class="label-text">T1</span>
+              </label>
+              <label>
+                <input type="checkbox" value="2" name="optionTerminal[]"  id="t2" checked="true" onchange="getFlight();"><span class="label-text">T2</span>
+              </label>
+            </div>
+          </div>
+          <div class="col-md-2">
+
+            <div class="terminal">
+              <label>
+                <input type="checkbox" value="0" name="optionFlightType[]" id="domestic"  checked="true" onchange="getFlight();"><span class="label-text">Domestic</span>
+              </label>
+              <label>
+                <input type="checkbox" value="1" name="optionFlightType[]"  id="international" checked="true" onchange="getFlight();"><span class="label-text">International</span>
+              </label>
+            </div>
+          </div>
           <div class="col-md-1">
             <button class="btn btn-primary "   onclick="downloadExcelFile();">Excel</button>
           </div>
