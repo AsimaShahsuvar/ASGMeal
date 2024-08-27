@@ -1,92 +1,128 @@
+v
 <template>
   <nav class="navbar navbar-expand-custom navbar-mainbg" aria-hidden="true">
-    <a class="navbar-brand navbar-logo" href="#">planing.asg.az</a>
-    <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
+    <router-link class="navbar-brand navbar-logo" to="/meal">Home</router-link>
+    <button
+      class="navbar-toggler"
+      type="button"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <i class="fa fa-bars text-white"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <div class="hori-selector" style="top: 0px; left: 15px; height: 60px; width: 89px;">
+        <div
+          class="hori-selector"
+          style="top: 0px; left: 15px; height: 60px; width: 89px"
+        >
           <div class="left"></div>
           <div class="right"></div>
         </div>
 
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" href="/checkin"><i class="fa fa-car" aria-hidden="true"></i>Checkin</a>-->
-<!--        </li>-->
-        <li class="nav-item">
+        <!--        <li class="nav-item">-->
+        <!--          <a class="nav-link" href="/checkin"><i class="fa fa-car" aria-hidden="true"></i>Checkin</a>-->
+        <!--        </li>-->
+        <!-- <li class="nav-item">
           <a class="nav-link" href="/realflight"><i class="fa fa-home" aria-hidden="true"></i>Ramp</a>
-        </li>
+        </li> -->
 
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" href="/dispatcher"><i class="fa fa-plane" aria-hidden="true"></i>Dispatcher</a>-->
-<!--        </li>-->
-        <li class="nav-item">
+        <!--        <li class="nav-item">-->
+        <!--          <a class="nav-link" href="/dispatcher"><i class="fa fa-plane" aria-hidden="true"></i>Dispatcher</a>-->
+        <!--        </li>-->
+        <!-- <li class="nav-item">
           <a class="nav-link" href="/supervisor"><i class="fa fa-plane" aria-hidden="true"></i>Supervisor</a>
-        </li>
+        </li> -->
 
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" href="/cleaning"><i class="fa fa-plane" aria-hidden="true"></i>Cleaning</a>-->
-<!--        </li>-->
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link" href="/pushback"><i class="fa fa-plane" aria-hidden="true"></i>PushBack</a>-->
-<!--        </li>-->
-        <li class="nav-item">
+        <!--        <li class="nav-item">-->
+        <!--          <a class="nav-link" href="/cleaning"><i class="fa fa-plane" aria-hidden="true"></i>Cleaning</a>-->
+        <!--        </li>-->
+        <!--        <li class="nav-item">-->
+        <!--          <a class="nav-link" href="/pushback"><i class="fa fa-plane" aria-hidden="true"></i>PushBack</a>-->
+        <!--        </li>-->
+        <!-- <li class="nav-item">
           <a class="nav-link" href="/addsupervisor"><i class="fa fa-plane" aria-hidden="true"></i>Add Supervisor to
             Flight</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" href="/meal"
+            ><i class="fa fa-plane" aria-hidden="true"></i>Meal</a
+          >
         </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/xboxlist"><i class="fa fa-plane" aria-hidden="true"></i>XBOX Flight</a>
+        <li class="nav-item">
+          <a class="nav-link" href="/table"
+            ><i class="fa fa-plane" aria-hidden="true"></i>Superviser</a
+          >
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/departure"
+            ><i class="fa fa-plane" aria-hidden="true"></i>Departure</a
+          >
+        </li>
+      </ul>
 
+      <!-- Move this UL to the right side -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/mealLogin" @click.prevent="logout"> LogOut </a>
+        </li>
       </ul>
     </div>
   </nav>
 </template>
 <script setup>
-import {useRoute, useRouter} from 'vue-router'
-import {useStore} from 'vuex'
-import {computed, onMounted, ref} from 'vue'
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { computed, onMounted, ref } from "vue";
 
-const route = useRoute()
-const router = useRouter()
-const store = useStore()
+const route = useRoute();
+const router = useRouter();
+const store = useStore();
 
 const logout = () => {
-  store.dispatch('auth/LOGOUT')
-}
+  localStorage.clear();
+  router.push("/mealLogin"); // Redirect to login page after logout
+};
 
-let activeIndex = ref('')
+
+
+
+let activeIndex = ref("");
 
 onMounted(async () => {
-  await router.isReady()
-  activeIndex.value = route.name
+    if (!localStorage.getItem("token")) {
+router.push("/mealLogin");
+} else {
+console.log(7777);
+}
+
+  await route.isReady();
+  activeIndex.value = route.name;
 
   let Script = document.createElement("script");
   Script.setAttribute("src", "/assets/js/menu.js");
   document.head.appendChild(Script);
-})
+
+});
 
 const routeName = computed(() => {
   const routes = {
-    '/users': 'Клиенты',
-    '/internal-users': 'Модераторы',
-  }
-  return routes[route.path]
-})
+    "/users": "Клиенты",
+    "/internal-users": "Модераторы",
+  };
+  return routes[route.path];
+});
 
 const getNameFirstLetter = () => {
-  return store.getters['auth/GET_USER_NAME_FIRST_LETTER']
-}
+  return store.getters["auth/GET_USER_NAME_FIRST_LETTER"];
+};
 
 const showUserPanel = () => {
-  store.commit('theme/CHANGE_USER_PANEL')
-}
-
+  store.commit("theme/CHANGE_USER_PANEL");
+};
 </script>
 <style>
-
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
 body {
@@ -133,18 +169,18 @@ i {
 }
 
 #navbarSupportedContent ul li a {
-  color: white;
+  color: #fff;
   text-decoration: none;
   font-size: 15px;
   display: block;
   padding: 20px 20px;
   transition-duration: 0.6s;
-  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition-timing-function: cubic-bezier(0.28, -0.15, 0.195, 0.45);
   position: relative;
 }
 
 #navbarSupportedContent > ul > li.active > a {
-  color: #5161ce;
+  color: #0f3a70;
   background-color: transparent;
   transition: all 0.7s;
 }
@@ -174,8 +210,8 @@ i {
   top: 0px;
   left: 0px;
   transition-duration: 0.6s;
-  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  background-color: #fff;
+  transition-timing-function: cubic-bezier(0.38, -0.35, 0.165, 0.55);
+  /* background-color: #fff; */
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   margin-top: 10px;
@@ -186,7 +222,7 @@ i {
   position: absolute;
   width: 25px;
   height: 25px;
-  background-color: #fff;
+  /* background-color: #fff; */
   bottom: 10px;
 }
 
@@ -240,6 +276,7 @@ i {
     display: flex !important;
     -ms-flex-preferred-size: auto;
     flex-basis: auto;
+    justify-content: space-between;
   }
 }
 
@@ -286,6 +323,4 @@ i {
   margin-bottom: 15px;
   border-bottom: 0px solid;
 }
-
-
 </style>

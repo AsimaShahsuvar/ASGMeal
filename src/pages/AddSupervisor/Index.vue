@@ -267,8 +267,6 @@ export default {
     let Script = document.createElement("script");
     Script.setAttribute("src", "/assets/js/addSupervisorToFlight.js");
     document.head.appendChild(Script);
-
-
   }
 };
 </script>

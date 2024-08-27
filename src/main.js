@@ -8,6 +8,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import moment from 'moment'
 import $ from 'jquery'
+import VueMoment from 'vue-moment';
 
 const app = createApp(App)
 app.config.devtools = true

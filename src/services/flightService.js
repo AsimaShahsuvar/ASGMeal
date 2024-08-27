@@ -2,7 +2,9 @@ import api from './api'
 
 const ENDPOINT = '/flight'
 export default {
-
+    getFlightXboxList(searchParams) {
+        return api.post(ENDPOINT + '/getflightxboxlist', searchParams)
+    },
     load(search, page = null, limit = null) {
         let params = {
             ...search,
