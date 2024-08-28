@@ -97,7 +97,6 @@ router.push("/mealLogin");
 console.log(7777);
 }
 
-  await route.isReady();
   activeIndex.value = route.name;
 
   let Script = document.createElement("script");

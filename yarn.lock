@@ -12,17 +12,27 @@
   resolved "https://npm.bryntum.com/@bryntum%2fdemo-resources/-/demo-resources-1.3.0.tgz"
   integrity sha512-sTsmuOCrrZwWmI7vswNdmDDWc6kfT5BOcOmBCTlirVIcVGeC+2xYMsARRlvP27AD96FBcmHNsf+GlPw5UghhyQ==
 
-"@bryntum/scheduler-vue-3@6.0.0":
-  version "6.0.0"
-  resolved "https://npm.bryntum.com/@bryntum%2fscheduler-vue-3/-/scheduler-vue-3-6.0.0.tgz"
-  integrity sha512-cfaQ6iTwExk2Gmst754hm12MqOp6cFBoJCHeLgQB+hQPw+LNdInVr01EW60nktbSOv8AlqxfRx0BuU5a8l6vUA==
+"@bryntum/schedulerpro-lib@1.0.0":
+  version "1.0.0"
+  resolved "https://npm.bryntum.com/@bryntum%2fschedulerpro-lib/-/schedulerpro-lib-1.0.0.tgz"
+  integrity sha512-WTXBpQN6t+FJhLkV98c30GIKmfYM48N36rKFZe0lW987je4sNLWx/9mwoLygGQOZ6KMVv1Dw3eKV+ur/eNvoqw==
 
-"@bryntum/scheduler@npm:@bryntum/scheduler-trial@6.0.0":
-  version "6.0.0"
-  resolved "https://npm.bryntum.com/@bryntum%2fscheduler-trial/-/scheduler-trial-6.0.0.tgz"
-  integrity sha512-J8X7BxpXfjL/NnoAXnvobQtsraMSoUsMfp8gPsMnW7SPn5Q+JeeJF+WKtMvH5itIqdCpS8Bv0LyGd071Uriiug==
+"@bryntum/schedulerpro-vue-3@6.0.4":
+  version "6.0.4"
+  resolved "https://npm.bryntum.com/@bryntum%2fschedulerpro-vue-3/-/schedulerpro-vue-3-6.0.4.tgz"
+  integrity sha512-I8Gi7Z6q+GlrRoUCatE+LnaPQxZ2fHWK6QFJ1zI9BZXnj1Jr/5NMV9u4tsVF5iP1Vt7QUmIljiKWzB5ODuNXiQ==
+
+"@bryntum/schedulerpro-vue@6.0.4":
+  version "6.0.4"
+  resolved "https://npm.bryntum.com/@bryntum%2fschedulerpro-vue/-/schedulerpro-vue-6.0.4.tgz"
+  integrity sha512-KXmbhbnWp/Tiiopz3asL+Tnre+wtBHbzna2z2ErlJ4EPpFyTk+uHDETXm8MK/6mFQsw1CSetYxcw4NU/MVDgYQ==
+
+"@bryntum/schedulerpro@6.0.4":
+  version "6.0.4"
+  resolved "https://npm.bryntum.com/@bryntum%2fschedulerpro/-/schedulerpro-6.0.4.tgz"
+  integrity sha512-gMr6qL29f2P9mNy+yLAfT7XVfNeTP1e9rSbo1OhJngs4xMAbDMAvhPd8ifwfTnjGQyVGQilDKNBJPvhGH44ZxA==
   optionalDependencies:
-    "@bryntum/scheduler-trial-lib" "1.0.0"
+    "@bryntum/schedulerpro-lib" "1.0.0"
 
 "@ctrl/tinycolor@^3.4.1":
   version "3.4.1"

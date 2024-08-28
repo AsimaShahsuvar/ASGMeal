@@ -97,13 +97,11 @@
 <script>
 
 import axios from 'axios'
-import * as Module from 'https://bryntum.com/products/scheduler/build/scheduler.module.js'
-import { Scheduler } from '@bryntum/scheduler'
+import { Scheduler } from '@bryntum/schedulerpro'
 import { onMounted, ref, onUnmounted } from 'vue'
 import { useDisabled } from 'element-plus'
 import star from '@element-plus/icons/lib/Star'
 
-Object.assign(window, Module)
 export default {
   setup () {
     const today = new Date()
