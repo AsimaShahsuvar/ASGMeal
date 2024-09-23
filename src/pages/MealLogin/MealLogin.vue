@@ -62,7 +62,7 @@ export default {
         const token = response.data.token;
         localStorage.setItem("token", token);
         
-        this.$router.push({ name: "meal" }); // Redirect to the meal page
+        this.$router.push({ name: "meal" });
       } catch (error) {
         this.errorMessage = "Invalid username or password.";
       }
@@ -142,5 +142,8 @@ input[type="password"]:focus {
   text-align: center;
   font-weight: bold;
   font-family: 'Arial', sans-serif;
+}
+.navbar{
+  display: none;
 }
 </style>

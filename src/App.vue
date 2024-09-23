@@ -1,5 +1,5 @@
 <template>
-  <HeaderBlock /> <router-view v-if="!isAuthorized" />
+  <HeaderBlock v-if="!isLogin" /> <router-view v-if="!isAuthorized" />
   <div v-if="isAuthorized">
     <!--    <HeaderMobileBlock />-->
     <!--    <div class="d-flex flex-column flex-root">-->
@@ -65,17 +65,16 @@ import HeaderBlock from './components/HeaderBlock.vue'
 
 import { computed, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+import { useRouter,useRoute  } from 'vue-router'
 // import buildingService from '@/services/buildingService'
 
 let centerDialogVisible = ref(false)
-const router = useRouter()
+const route = useRoute()
 const store = useStore()
 const value = ref('')
 const allBuilding = ref('')
 const building = ref('')
-
-
+const isLogin=computed(() => route.name === 'auth')
 onMounted(async () => {
 
 

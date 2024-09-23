@@ -231,6 +231,8 @@ export default {
           name: flight.park.toString(),
         }))
         const events = []
+
+
         flightData.forEach(flight => {
           flight.data.forEach(x => {
             const startDate = new Date(x.schedule_start)
@@ -271,6 +273,9 @@ export default {
           })
         })
 
+
+
+        
         scheduler.resources = resources
         scheduler.events = events
       } catch (error) {
@@ -326,7 +331,7 @@ export default {
     }
   }
 }
-</script>
+</script >
 <style lang="scss">
 @import '@/pages/meal/meal';
 

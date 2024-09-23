@@ -1,7 +1,8 @@
-v
 <template>
-  <nav class="navbar navbar-expand-custom navbar-mainbg" aria-hidden="true">
-    <router-link class="navbar-brand navbar-logo" to="/meal">Home</router-link>
+  <nav
+    :class="['navbar', 'navbar-expand-custom', 'navbar-mainbg']"
+    aria-hidden="true"
+  >
     <button
       class="navbar-toggler"
       type="button"
@@ -20,31 +21,8 @@ v
           <div class="left"></div>
           <div class="right"></div>
         </div>
+        
 
-        <!--        <li class="nav-item">-->
-        <!--          <a class="nav-link" href="/checkin"><i class="fa fa-car" aria-hidden="true"></i>Checkin</a>-->
-        <!--        </li>-->
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/realflight"><i class="fa fa-home" aria-hidden="true"></i>Ramp</a>
-        </li> -->
-
-        <!--        <li class="nav-item">-->
-        <!--          <a class="nav-link" href="/dispatcher"><i class="fa fa-plane" aria-hidden="true"></i>Dispatcher</a>-->
-        <!--        </li>-->
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/supervisor"><i class="fa fa-plane" aria-hidden="true"></i>Supervisor</a>
-        </li> -->
-
-        <!--        <li class="nav-item">-->
-        <!--          <a class="nav-link" href="/cleaning"><i class="fa fa-plane" aria-hidden="true"></i>Cleaning</a>-->
-        <!--        </li>-->
-        <!--        <li class="nav-item">-->
-        <!--          <a class="nav-link" href="/pushback"><i class="fa fa-plane" aria-hidden="true"></i>PushBack</a>-->
-        <!--        </li>-->
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/addsupervisor"><i class="fa fa-plane" aria-hidden="true"></i>Add Supervisor to
-            Flight</a>
-        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="/meal"
             ><i class="fa fa-plane" aria-hidden="true"></i>Meal</a
@@ -52,7 +30,7 @@ v
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/table"
-            ><i class="fa fa-plane" aria-hidden="true"></i>Superviser</a
+            ><i class="fa fa-plane" aria-hidden="true"></i>Supervisor</a
           >
         </li>
         <li class="nav-item">
@@ -62,15 +40,22 @@ v
         </li>
       </ul>
 
-      <!-- Move this UL to the right side -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/mealLogin" @click.prevent="logout"> LogOut </a>
+          <a class="nav-link" href="google.com" @click.prevent="logout"
+            >LogOut</a
+          >
         </li>
       </ul>
     </div>
   </nav>
+
+  <!-- Rest of your component template -->
+  <div class="main-container">
+    <!-- Table content here -->
+  </div>
 </template>
+
 <script setup>
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -79,30 +64,47 @@ import { computed, onMounted, ref } from "vue";
 const route = useRoute();
 const router = useRouter();
 const store = useStore();
-
+const navbarVisible = ref(false);
 const logout = () => {
-  localStorage.clear();
   router.push("/mealLogin"); // Redirect to login page after logout
+  localStorage.clear();
+  
 };
 
+onMounted(() => {
+  if (!localStorage.getItem("token")) {
+    router.push("/mealLogin");
+  } else {
 
+  }
+});
 
+// Check localStorage and set navbar visibility on component mount
+// onMounted(() => {
+//   const token = localStorage.getItem("token");
+//   navbarVisible.value = token; // Set navbar visibility based on token presence
+
+//   if (!token) {
+//     router.push("/mealLogin");
+//   }
+//   else{
+//     navbarVisible.value='false'
+//   }
+// });
 
 let activeIndex = ref("");
 
 onMounted(async () => {
-    if (!localStorage.getItem("token")) {
-router.push("/mealLogin");
-} else {
-console.log(7777);
-}
+  if (!localStorage.getItem("token")) {
+    router.push("/mealLogin");
+  } else {
+  }
 
   activeIndex.value = route.name;
 
   let Script = document.createElement("script");
   Script.setAttribute("src", "/assets/js/menu.js");
   document.head.appendChild(Script);
-
 });
 
 const routeName = computed(() => {
@@ -121,6 +123,7 @@ const showUserPanel = () => {
   store.commit("theme/CHANGE_USER_PANEL");
 };
 </script>
+
 <style>
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 
@@ -137,132 +140,131 @@ i {
   margin-right: 10px;
 }
 
-/*----------bootstrap-navbar-css------------*/
+/* Navbar Styling */
 .navbar-logo {
-  padding: 15px;
+  padding: 10px; /* Reduced padding */
   color: #fff;
+  font-size: 20px; /* Smaller font size */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px; /* Reduced letter-spacing */
 }
 
 .navbar-mainbg {
-  background-color: #003a70;
-  padding: 0px;
+  background: linear-gradient(
+    90deg,
+    #002f5d 0%,
+    #004b8d 100%
+  ); /* Enhanced gradient */
+  padding: 10px 20px; /* Reduced padding for a more compact look */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adjusted shadow */
 }
 
 #navbarSupportedContent {
   overflow: hidden !important;
   position: relative;
+  width: 100%;
 }
 
 #navbarSupportedContent ul {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#navbarSupportedContent ul li a i {
-  margin-right: 10px;
-}
-
-#navbarSupportedContent li {
+#navbarSupportedContent ul li {
   list-style-type: none;
-  float: left;
-}
-
-#navbarSupportedContent ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 15px;
-  display: block;
-  padding: 20px 20px;
-  transition-duration: 0.6s;
-  transition-timing-function: cubic-bezier(0.28, -0.15, 0.195, 0.45);
+  margin-right: 15px; /* Reduced margin between items */
   position: relative;
 }
 
+#navbarSupportedContent ul li:last-child {
+  margin-right: 0;
+}
+
+#navbarSupportedContent ul li a {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 14px; /* Smaller font size */
+  display: flex;
+  align-items: center;
+  padding: 10px 15px; /* Reduced padding */
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#navbarSupportedContent ul li a:hover {
+  background-color: #004b8d;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Active Navbar Item */
 #navbarSupportedContent > ul > li.active > a {
-  color: #0f3a70;
-  background-color: transparent;
-  transition: all 0.7s;
-}
-
-#navbarSupportedContent a:not(:only-child):after {
-  content: "\f105";
-  position: absolute;
-  right: 20px;
-  top: 10px;
-  font-size: 14px;
-  font-family: "Font Awesome 5 Free";
-  display: inline-block;
-  padding-right: 3px;
-  vertical-align: middle;
-  font-weight: 900;
-  transition: 0.5s;
-}
-
-#navbarSupportedContent .active > a:not(:only-child):after {
-  transform: rotate(90deg);
+  color: #fff;
+  background-color: #003a70; /* Dark background for active item */
+  border-bottom: 3px solid #ffab00; /* Bright underline */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .hori-selector {
   display: inline-block;
   position: absolute;
   height: 100%;
-  top: 0px;
-  left: 0px;
-  transition-duration: 0.6s;
-  transition-timing-function: cubic-bezier(0.38, -0.35, 0.165, 0.55);
-  /* background-color: #fff; */
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  margin-top: 10px;
+  top: 0;
+  left: 0;
+  transition-duration: 0.3s;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-top: 5px;
+  z-index: -1;
 }
 
 .hori-selector .right,
 .hori-selector .left {
   position: absolute;
-  width: 25px;
-  height: 25px;
-  /* background-color: #fff; */
+  width: 20px; /* Smaller width */
+  height: 20px; /* Smaller height */
   bottom: 10px;
 }
 
 .hori-selector .right {
-  right: -25px;
+  right: -20px;
 }
 
 .hori-selector .left {
-  left: -25px;
+  left: -20px;
 }
 
 .hori-selector .right:before,
 .hori-selector .left:before {
   content: "";
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 40px; /* Smaller diameter */
+  height: 40px; /* Smaller diameter */
   border-radius: 50%;
   background-color: #003a70;
 }
 
 .hori-selector .right:before {
   bottom: 0;
-  right: -25px;
+  right: -20px;
 }
 
 .hori-selector .left:before {
   bottom: 0;
-  left: -25px;
+  left: -20px;
 }
 
 @media (min-width: 992px) {
   .navbar-expand-custom {
-    -ms-flex-flow: row nowrap;
     flex-flow: row nowrap;
-    -ms-flex-pack: start;
     justify-content: flex-start;
   }
 
   .navbar-expand-custom .navbar-nav {
-    -ms-flex-direction: row;
     flex-direction: row;
   }
 
@@ -271,23 +273,19 @@ i {
   }
 
   .navbar-expand-custom .navbar-collapse {
-    display: -ms-flexbox !important;
     display: flex !important;
-    -ms-flex-preferred-size: auto;
-    flex-basis: auto;
     justify-content: space-between;
   }
 }
 
 @media (max-width: 991px) {
   #navbarSupportedContent ul li a {
-    padding: 12px 30px;
+    padding: 10px 20px; /* Reduced padding for mobile view */
   }
 
   .hori-selector {
-    margin-top: 0px;
+    margin-top: 0;
     margin-left: 10px;
-    border-radius: 0;
     border-top-left-radius: 25px;
     border-bottom-left-radius: 25px;
   }
@@ -298,27 +296,26 @@ i {
   }
 
   .hori-selector .left {
-    top: -25px;
+    top: -20px;
     left: auto;
   }
 
   .hori-selector .right {
-    bottom: -25px;
+    bottom: -20px;
   }
 
   .hori-selector .left:before {
-    left: -25px;
-    top: -25px;
+    left: -20px;
+    top: -20px;
   }
 
   .hori-selector .right:before {
-    bottom: -25px;
-    left: -25px;
+    bottom: -20px;
+    left: -20px;
   }
 }
 
 .navbar {
-  border-radius: 0px !important;
   margin-bottom: 15px;
   border-bottom: 0px solid;
 }
