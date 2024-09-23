@@ -33,7 +33,7 @@
             <td>{{ item.time_bt }}</td>
             <td>{{ item.ac }}</td>
             <td>{{ item.stand }}</td>
-            <td>{{ getSupervisorName(item.supervisorId) }}</td>
+            <td></td>
             <td>{{ item.remark }}</td>
             <td @click="openModal(item)">
               <button class="plus-button" @click.stop="openModal(item)">
@@ -78,7 +78,7 @@
             <td>{{ item.time_bt }}</td>
             <td>{{ item.ac }}</td>
             <td>{{ item.stand }}</td>
-            <td>{{ getSupervisorName(item.supervisorId) }}</td>
+            <td></td>
             <td>{{ item.remark }}</td>
             <td>
               <button class="plus-button" @click="addSupervisor()">+</button>
@@ -338,12 +338,12 @@ clearInterval(this.refreshInterval);
       padding: 8px;
     `;
     },
-    getSupervisorName(supervisorId) {
-      const supervisor = this.supervisorData.find(
-        (s) => s.workerId === supervisorId
-      );
-      return supervisor ? supervisor.fullName : "Unknown";
-    },
+    // getSupervisorName(supervisorId) {
+    //   const supervisor = this.supervisorData.find(
+    //     (s) => s.workerId === supervisorId
+    //   );
+    //   return supervisor ? supervisor.fullName : "Unknown";
+    // },
   },
 };
 </script>
