@@ -32,7 +32,7 @@
           <tr
             v-for="(flight, index) in filteredFlights"
             :key="flight.id"
-            @click="openModal(flight)"
+            @click="openCabinModal(1,flight)"
           >
             <td class="flight-number">
               <span class="flight-index">{{ index + 1 }}</span>
@@ -45,13 +45,13 @@
                 - {{ flight.dest || "Antalya" }})
               </span>
             </td>
-            <td @click.stop="openCabinModal('business', flight)">
+            <td>
               {{ extractCabin(flight.cabin_business) }}
             </td>
-            <td @click.stop="openCabinModal('comfort', flight)">
+            <td>
               {{ extractCabin(flight.cabin_comfort) }}
             </td>
-            <td @click.stop="openCabinModal('economy', flight)">
+            <td>
               {{ extractCabin(flight.cabin_econom) }}
             </td>
 
@@ -60,11 +60,6 @@
                 v-for="(meal, mealIndex) in getMealArray(flight.meal_service)"
                 :key="mealIndex"
                 class="meal-item"
-                @click.stop="
-                  openMealModal(
-                    meal.includes('-') ? meal.split('-')[1].trim() : meal.trim()
-                  )
-                "
               >
                 {{ meal }}
               </span>
@@ -80,8 +75,6 @@
         <p><strong>Flight Number:</strong> {{ selectedFlight.flt }}</p>
         <p><strong>Departure:</strong> {{ selectedFlight.dep }}</p>
         <p><strong>Destination:</strong> {{ selectedFlight.dest }}</p>
-
-        <!-- Passenger List as a Table -->
         <table v-if="passengers.length > 0" class="passenger-table">
           <thead>
             <tr>
@@ -99,7 +92,6 @@
           </tbody>
         </table>
         <p v-else>No passengers found for this flight.</p>
-
         <button @click="closeModal">Close</button>
       </div>
     </div>
@@ -113,7 +105,7 @@
       <div class="modal-content" @click.stop>
         <h2>{{ selectedMeal }} Details</h2>
         <div class="meal-description">
-          <span class="meal-icon">{{ getMealIcon(selectedMeal) }}</span>
+          <span class="meal-icon">{{ selectedMeal}}</span>
           <span>{{ mealDetails }}</span>
         </div>
         <button @click="closeMealModal">Close</button>

@@ -262,6 +262,7 @@ export default {
               outb_route: x.outb_route,
               style
             }
+            events.push(newEvent)
             if (isNarrow && x.body === 'N') {
               events.push(newEvent)
               console.log(3)
@@ -275,7 +276,7 @@ export default {
 
 
 
-        
+
         scheduler.resources = resources
         scheduler.events = events
       } catch (error) {
