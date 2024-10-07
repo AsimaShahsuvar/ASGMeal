@@ -1,114 +1,122 @@
 <template>
   <div class="main-container">
-    <!-- Filter Input -->
-    <div class="filter-container">
-      <div class="input-wrapper">
-        <input
-          type="text"
-          v-model="searchQuery"
-          placeholder="Enter flight name"
-          class="filter-input"
-        />
-        <span class="input-icon">🔍</span>
-      </div>
-    </div>
-
     <div class="table-container">
       <table>
         <thead>
           <tr>
-            <th rowspan="2">Flight Information</th>
-            <th colspan="4">Cabin</th>
-            <th rowspan="2">Special Service</th>
+            <th rowspan="2" style="height: 80px; width: 50px">#</th>
+            <th rowspan="2">
+              <div class="filter-container">
+                <div class="input-wrapper">
+                  <input
+                    type="text"
+                    v-model="searchQuery"
+                    placeholder="Enter flight name"
+                    class="filter-input"
+                  />
+                  <span class="input-icon">🔍</span>
+                </div>
+              </div>
+            </th>
+            <th colspan="3">Cabin</th>
+            <th class="special-service-header" rowspan="2">Special Service</th>
           </tr>
           <tr>
-            <th>J</th>
-            <th>C</th>
-            <th>W</th>
-            <th>Y</th>
+            <th @click="openCabinModal('business')">C</th>
+            <th @click="openCabinModal('comfort')">W</th>
+            <th @click="openCabinModal('economy')">Y</th>
           </tr>
         </thead>
+
         <tbody>
           <tr
-            v-for="flight in filteredFlights"
+            v-for="(flight, index) in filteredFlights"
             :key="flight.id"
             @click="openModal(flight)"
           >
-            <td>
-              {{ flight.flt }} ({{ flight.dep || "Unknown" }} to
-              {{ flight.dest || "Unknown" }})
+            <td class="flight-number">
+              <span class="flight-index">{{ index + 1 }}</span>
             </td>
-            <td>{{ extractCabin(flight.cabin_vip) }}</td>
-            <td>{{ extractCabin(flight.cabin_business) }}</td>
-            <td>{{ extractCabin(flight.cabin_comfort) }}</td>
-            <td>{{ extractCabin(flight.cabin_econom) }}</td>
-            <!-- Show icons next to meal names in Special Service column -->
+            <td class="flight-info">
+              <span class="flight-info-text">
+                {{ formatFlightNumber(flight.flt) }} ({{
+                  flight.dep || "Unknown"
+                }}
+                - {{ flight.dest || "Antalya" }})
+              </span>
+            </td>
+            <td @click.stop="openCabinModal('business', flight)">
+              {{ extractCabin(flight.cabin_business) }}
+            </td>
+            <td @click.stop="openCabinModal('comfort', flight)">
+              {{ extractCabin(flight.cabin_comfort) }}
+            </td>
+            <td @click.stop="openCabinModal('economy', flight)">
+              {{ extractCabin(flight.cabin_econom) }}
+            </td>
+
             <td>
               <span
-                v-for="meal in formatMealService(flight.meal_service).split(
-                  ','
-                )"
-                :key="meal"
+                v-for="(meal, mealIndex) in getMealArray(flight.meal_service)"
+                :key="mealIndex"
+                class="meal-item"
+                @click.stop="
+                  openMealModal(
+                    meal.includes('-') ? meal.split('-')[1].trim() : meal.trim()
+                  )
+                "
               >
                 {{ meal }}
               </span>
             </td>
-            <!-- <td>{{ formatMealService(flight.meal_service) }}</td> -->
-
-            <!-- <td>
-              {{ formatMealService(" AVML,CHML,HNML,KSML,VJML,VLML,SFML,RVML") }}
-            </td> -->
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Modal component -->
     <div v-if="isModalVisible" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>
-        <h2>Passenger List for Flight ID: {{ selectedFlightId }}</h2>
-        <table v-if="passengers.length">
+        <h2>Flight Information</h2>
+        <p><strong>Flight Number:</strong> {{ selectedFlight.flt }}</p>
+        <p><strong>Departure:</strong> {{ selectedFlight.dep }}</p>
+        <p><strong>Destination:</strong> {{ selectedFlight.dest }}</p>
+
+        <!-- Passenger List as a Table -->
+        <table v-if="passengers.length > 0" class="passenger-table">
           <thead>
             <tr>
-              <th>№</th>
-              <th>Service</th>
-              <th>CL</th>
-              <th>SSR</th>
+              <th>#</th>
               <th>Name</th>
+              <th>Meal</th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(passenger, index) in passengers"
-              :key="passenger.id"
-              @click="showPassengerDetails(passenger)"
-            >
+            <tr v-for="(passenger, index) in passengers" :key="index">
               <td>{{ index + 1 }}</td>
-              <td>{{ passenger.meal_code || "N/A" }}</td>
-              <td>{{ passenger.meal_class || "N/A" }}</td>
-              <td>{{ passenger.ssr_code || "N/A" }}</td>
               <td>{{ passenger.pax || "N/A" }}</td>
+              <td>{{ passenger.meal || "N/A" }}</td>
             </tr>
           </tbody>
         </table>
-        <p v-else>No passengers available for this flight.</p>
+        <p v-else>No passengers found for this flight.</p>
+
         <button @click="closeModal">Close</button>
       </div>
     </div>
 
-    <!-- Passenger Detail Modal -->
+    <!-- Meal Modal -->
     <div
-      v-if="isPassengerModalVisible"
+      v-if="isMealModalVisible"
       class="modal-overlay"
-      @click="closePassengerModal"
+      @click="closeMealModal"
     >
       <div class="modal-content" @click.stop>
-        <h2>Passenger Details</h2>
-        <p><strong>Name:</strong> {{ selectedPassenger.pax }}</p>
-        <p><strong>Meal Code:</strong> {{ selectedPassenger.meal_code }}</p>
-        <p><strong>Meal Class:</strong> {{ selectedPassenger.meal_class }}</p>
-        <p><strong>SSR Code:</strong> {{ selectedPassenger.ssr_code }}</p>
-        <button @click="closePassengerModal">Close</button>
+        <h2>{{ selectedMeal }} Details</h2>
+        <div class="meal-description">
+          <span class="meal-icon">{{ getMealIcon(selectedMeal) }}</span>
+          <span>{{ mealDetails }}</span>
+        </div>
+        <button @click="closeMealModal">Close</button>
       </div>
     </div>
   </div>
@@ -125,12 +133,42 @@ export default {
       flights: [],
       searchQuery: "",
       isModalVisible: false,
-      // isPassengerModalVisible: false,
-      selectedFlightId: null,
+      selectedFlight: {},
       passengers: [],
-      selectedPassenger: {}, // To store the selected passenger details
+      isMealModalVisible: false,
+      selectedMeal: "",
+      mealDetails: "",
+      mealTotals: {}, // Store meal counts
+      mealDetailsMap: {
+        CHML: "CHML", // Child Meal
+        BBML: "BBML", // Baby Meal
+        AVML: "AVML", // Asian Vegetarian Meal
+        RVML: "RVML", // Raw Vegetarian Meal
+        VGML: "VGML", // Vegetarian Vegan Meal
+        VLML: "VLML", // Vegetarian Lacto-Ovo Meal
+        NLML: "NLML", // Non-Lactose Meal
+        VOML: "VOML", // Vegetarian Oriental Meal
+        DBML: "DBML", // Diabetic Meal
+        GFML: "GFML", // Gluten-Free Meal
+        LFML: "LFML", // Low Fat Meal
+        LSML: "LSML", // Low Salt Meal
+        LCML: "LCML", // Low Calorie Meal
+        LPML: "LPML", // Low Protein Meal
+        PRML: "PRML", // Low Purine Meal
+        HNML: "HNML", // Hindu Non-Vegetarian Meal
+        KSML: "KSML", // Kosher Meal
+        MOML: "MOML", // Muslim Meal
+        ORML: "ORML", // Oriental Meal
+        VJML: "VJML", // Vegetarian Jain Meal
+        SFML: "SFML", // Seafood Meal
+        BLML: "BLML", // Bland/Soft Meal
+        FPML: "FPML", // Fruit Platter Meal
+        NFML: "NFML", // No Fish Meal
+        HFML: "HFML", // High Fiber Meal
+      },
     };
   },
+
   computed: {
     filteredFlights() {
       const query = this.searchQuery.toLowerCase();
@@ -171,103 +209,209 @@ export default {
       console.error("Error fetching flight data:", error);
     }
   },
+
   methods: {
     extractCabin(cabinInfo) {
       return cabinInfo || "N/A";
     },
 
-    getMealIcon(mealCode) {
-      const mealIcons = {
-        AVML: "🥗", // Asian Vegetarian Meal
-        CHML: "🍗", // Child Meal
-        HNML: "🍖", // Hindu Meal
-        KSML: "🥓", // Kosher Meal
-        VJML: "🥬", // Vegetarian Jain Meal
-        VLML: "🌱", // Vegetarian Lacto-Ovo Meal
-        SFML: "🐟", // Seafood Meal
-        RVML: "🍠", // Raw Vegetarian Meal
-        // Add more mappings as needed
-      };
-
-      return mealIcons[mealCode] || ""; // Default icon if not found
+    formatFlightNumber(flightNumber) {
+      const prefix = flightNumber.slice(0, 2);
+      const suffix = flightNumber.slice(2);
+      return `${prefix} - ${suffix}`;
     },
+
+    countMealOccurrences(mealService, mealCode) {
+      if (!mealService) return 0;
+      const meals = mealService.split(",");
+      return meals.filter((meal) => meal.includes(mealCode)).length;
+    },
+
+    // getMealIcon(mealCode) {
+    //   const mealIcons = {
+    //     AVML: "🥗", // Asian Vegetarian Meal
+    //     CHML: "🍗", // Child Meal
+    //     HNML: "🍖", // Hindu Non-Vegetarian Meal
+    //     KSML: "🥓", // Kosher Meal
+    //     VJML: "🥬", // Vegetarian Jain Meal
+    //     VLML: "🌱", // Vegetarian Lacto-Ovo Meal
+    //     SFML: "🐟", // Seafood Meal
+    //     RVML: "🍠", // Raw Vegetarian Meal
+    //     BBML: "👶", // Baby Meal
+    //     VGML: "🥑", // Vegetarian Vegan Meal
+    //     NLML: "🥛", // Non-Lactose Meal
+    //     VOML: "🍜", // Vegetarian Oriental Meal
+    //     DBML: "🍏", // Diabetic Meal
+    //     GFML: "🍞", // Gluten-Free Meal
+    //     LFML: "🥗", // Low Fat Meal
+    //     LSML: "🧂", // Low Salt Meal
+    //     LCML: "⚖️", // Low Calorie Meal
+    //     LPML: "🍽️", // Low Protein Meal
+    //     PRML: "🍒", // Low Purine Meal
+    //     MOML: "🍛", // Muslim Meal
+    //     ORML: "🍚", // Oriental Meal
+    //     BLML: "🍲", // Bland/Soft Meal
+    //     FPML: "🍉", // Fruit Platter Meal
+    //     NFML: "🐠", // No Fish Meal
+    //     HFML: "🌾", // High Fiber Meal
+    //   };
+    //   return mealIcons[mealCode] || "";
+    // },
 
     formatMealService(mealService) {
       if (!mealService) return "N/A";
-
-      // Split the meal codes and return with the corresponding icons
       return mealService
         .split(",")
         .map((meal) => {
           const trimmedMeal = meal.trim();
-          const icon = this.getMealIcon(trimmedMeal); // Get the corresponding icon
-          return `${icon} ${trimmedMeal}`; // Icon followed by meal code
+          return `${trimmedMeal}`;
         })
-        .join(", "); // Use ", " as the separator between meals
+        .join(", ");
     },
 
-    async openModal(flight) {
-      this.selectedFlightId = flight.id;
+    getMealArray(mealService) {
+      const meals = mealService
+        ? mealService.split(",").map((m) => {
+            const trimmedMeal = m.trim();
+            const mealParts = trimmedMeal.split("-");
+            if (mealParts.length === 2) {
+              return `${mealParts[1].trim()} - ${mealParts[0].trim()}`.trim();
+            }
+            return `${trimmedMeal}`.trim();
+          })
+        : [];
+
+      return meals.filter(Boolean); // Filter out any empty or undefined values
+    },
+
+    async openCabinModal(cabinType, flight) {
+      // Set the selected flight for the modal
+      this.selectedFlight = flight;
       this.isModalVisible = true;
 
       try {
         const responseToken = localStorage.getItem("token");
-        const headers = {
-          Authorization: `Bearer ${responseToken}`,
-        };
+        const headers = { Authorization: `Bearer ${responseToken}` };
 
+        // Fetching passengers for the specific cabin in the selected flight
         const passengerResponse = await api.get(
+          `/v1/passenger?flight_id=${flight.id}&cabin_type=${cabinType}`,
+          { headers }
+        );
+
+        this.passengers = passengerResponse.data.data.map((passenger) => {
+          const mealCode = passenger.meal_code; // Adjust based on actual structure
+          return {
+            ...passenger,
+            meal: this.mealDetailsMap[mealCode] || "No Meal",
+          };
+        });
+      } catch (error) {
+        console.error("Error fetching passenger data for cabin:", error);
+        this.passengers = [];
+      }
+    },
+
+    openModal(flight) {
+      this.selectedFlight = flight;
+      this.isModalVisible = true;
+
+      try {
+        const responseToken = localStorage.getItem("token");
+        const headers = { Authorization: `Bearer ${responseToken}` };
+
+        // Fetching passengers for the selected flight
+        const passengerResponse = api.get(
           `/v1/passenger?flight_id=${flight.id}`,
           { headers }
         );
 
-        this.passengers = passengerResponse.data.data || [];
+        // Assuming passengerResponse.data.data contains an array of passengers
+        this.passengers = passengerResponse.data.data.map((passenger) => {
+          const mealCode = passenger.meal_code; // Adjust based on actual structure
+          return {
+            ...passenger,
+            meal: this.mealDetailsMap[mealCode] || "No Meal",
+          };
+        });
       } catch (error) {
         console.error("Error fetching passenger data:", error);
-        this.passengers = []; // Reset passengers on error
+        this.passengers = [];
       }
     },
+
     closeModal() {
       this.isModalVisible = false;
-      this.selectedFlightId = null;
-      this.passengers = []; // Clear passengers on close
+      this.selectedFlight = {};
+    },
+
+    openMealModal(mealCode, mealService) {
+      const count = this.countMealOccurrences(mealService, mealCode);
+      this.selectedMeal = mealCode;
+      this.mealDetails = `${this.mealDetailsMap[mealCode] || "Details not available."} - Count: ${count}`;
+      this.isMealModalVisible = true;
+    },
+
+    closeMealModal() {
+      this.isMealModalVisible = false;
+      this.selectedMeal = "";
+      this.mealDetails = "";
     },
   },
 };
 </script>
 
 <style scoped>
+.flight-number {
+  text-align: center;
+  padding-left: 0;
+}
+
+.flight-index {
+  font-weight: bold;
+  margin-right: 0;
+}
+
+.flight-info {
+  padding: 5px;
+  margin: 0;
+}
+
+.flight-info-text {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1.2;
+  font-size: 16px;
+}
+
 .main-container {
-  padding: 20px;
+  padding: 2px;
   border-radius: 12px;
-  background: linear-gradient(
-    135deg,
-    #e9f1f7,
-    #ffffff
-  ); /* Light gradient background */
+  background: linear-gradient(135deg, #e9f1f7, #ffffff);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .filter-container {
-  margin-bottom: 20px;
+  margin: 10px;
   display: flex;
-  justify-content: flex-start; /* Align to the left */
+  justify-content: flex-start;
 }
 
 .input-wrapper {
   position: relative;
-  display: inline-flex; /* Align input and icon horizontally */
+  display: inline-flex;
   align-items: center;
-  outline: none;
 }
 
 .filter-input {
-  width: 200px; /* Adjust width for compact design */
-  padding: 8px 30px 8px 12px;
-  border-radius: 8px; /* Rounded edges for softer look */
+  width: 250px;
+  padding: 8px 25px 8px 15px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 14px;
+  font-size: 16px;
   outline: none;
   transition: border-color 0.3s ease;
+  background: #b7c6f0;
 }
 
 .filter-input:focus {
@@ -277,14 +421,14 @@ export default {
 .input-icon {
   position: absolute;
   right: 10px;
-  font-size: 16px;
-  color: #aaa;
+  font-size: 18px;
+  color: #d6d3d3;
 }
 
 .table-container {
   overflow-x: auto;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   margin-top: 20px;
   background-color: #fff;
 }
@@ -292,31 +436,28 @@ export default {
 table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 thead {
-  background: linear-gradient(135deg, #1f5ed7, #004aad); /* Gradient header */
+  background: linear-gradient(135deg, #1f5ed7, #004aad);
   color: #fff;
   position: sticky;
   top: 0;
-  z-index: 1; /* Ensure the header is above other content */
+  z-index: 1;
 }
 
 th,
 td {
   border: 1px solid #ddd;
-  padding: 12px;
+  padding: 5px;
   text-align: center;
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.5;
   transition:
     background-color 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease; /* Add transform transition */
+    color 0.3s ease;
 }
 
 th {
@@ -324,51 +465,73 @@ th {
   text-transform: uppercase;
 }
 
-/* tbody tr:nth-child(even) {
-  background-color: #f7f9fc;
+/* Tablo başlığı için özel stil */
+th {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #1f5ed7, #004aad);
+  padding: 12px 8px;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  letter-spacing: 1.2px;
 }
 
-tbody tr:nth-child(even):hover,
-tr:hover {
-  color: #fff;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+th[colspan="8"] {
+  text-align: center;
+  font-size: 20px;
+  background: linear-gradient(135deg, #1a73e8, #4285f4);
+  color: #ffffff;
+  padding: 14px;
+  letter-spacing: 1.5px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-tbody tr:nth-child(even):hover,
-tr:hover {
-  background: #558ee4;
-} */
+th[colspan="8"]:hover {
+  background: linear-gradient(135deg, #1456d8, #2b66f4);
+  transition: background 0.4s ease;
+}
 
+.special-service-header {
+  text-align: center;
+  font-size: 26px;
+  background: linear-gradient(135deg, #1f5ed7, #004aad, #003e80);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #ffffff;
+  padding: 20px 28px;
+  letter-spacing: 2.5px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  border-radius: 0 0 0 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all 0.4s ease-in-out;
+  font-weight: bold;
+}
 tbody tr:hover {
   background: #558ee4;
-  color: #fff;
-}
-
-tbody tr:hover td {
-  background: #66aaff;
-}
-
-thead th {
-  background-color: #1f5ed7;
   color: #fff;
 }
 
 tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+tbody tr:nth-child(even):hover {
+  background-color: #558ee4;
+}
 
 td {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 16px;
+  line-height: 1.2;
 }
 
 .modal-content button:hover {
-  background: linear-gradient(135deg, #1f5ed7, #0056b3); /* Gradient hover */
+  background: linear-gradient(135deg, #1f5ed7, #0056b3);
   transition: background 0.3s ease;
 }
 
-/* Modal styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -379,20 +542,20 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(5px); /* Add blur effect */
-  z-index: 999; /* Ensure it's above other content */
+  backdrop-filter: blur(5px);
+  z-index: 999;
 }
 
 .modal-content {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Deeper shadow for modal */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   max-width: 500px;
   width: 100%;
-  max-height: 80vh; /* Limit the modal height */
-  overflow-y: auto; /* Enable vertical scrolling */
-  z-index: 1000; /* Ensure it's above the overlay */
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .modal-content h2 {
@@ -408,7 +571,7 @@ td {
 .modal-content th,
 .modal-content td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 10px;
   text-align: left;
 }
 
@@ -428,8 +591,60 @@ td {
 }
 
 .meal-item {
-  display: inline-block;
-  margin-right: 8px; /* Spacing between items */
-  font-size: 14px; /* Adjust font size as needed */
+  display: inline-flex;
+  align-items: center;
+  margin: 5px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  color: #003f91;
+  font-weight: 600;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.meal-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  background: #e0f0ff;
+}
+
+.meal-item:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meal-description {
+  display: flex;
+  align-items: center;
+}
+
+.meal-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+.passenger-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.passenger-table th,
+.passenger-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.passenger-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.passenger-table tr:hover {
+  background-color: #467df3;
 }
 </style>

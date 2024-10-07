@@ -5,7 +5,7 @@
     id="tsparticles"
     class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid"
     style="background-image: url(assets/media/bg/bg-2.jpg);"
-  />
+    />
   <div class="login-box">
     <h2>Login</h2>
     <form

@@ -21,7 +21,6 @@
           <div class="left"></div>
           <div class="right"></div>
         </div>
-        
 
         <li class="nav-item">
           <a class="nav-link" href="/meal"
@@ -41,12 +40,19 @@
       </ul>
 
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="google.com" @click.prevent="logout"
-            >LogOut</a
-          >
-        </li>
-      </ul>
+  <li class="nav-item">
+    <a
+      class="nav-link logout-button"
+      href="google.com"
+      @click.prevent="logout"
+    >
+      <i class="fa fa-paper-plane" aria-hidden="true" style="font-size: 1.5em; color: #ff6347;"></i> LogOut
+    </a>
+  </li>
+</ul>
+
+
+
     </div>
   </nav>
 
@@ -68,14 +74,12 @@ const navbarVisible = ref(false);
 const logout = () => {
   router.push("/mealLogin"); // Redirect to login page after logout
   localStorage.clear();
-  
 };
 
 onMounted(() => {
   if (!localStorage.getItem("token")) {
     router.push("/mealLogin");
   } else {
-
   }
 });
 
@@ -126,6 +130,7 @@ const showUserPanel = () => {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Roboto");
+
 
 body {
   font-family: "Roboto", sans-serif;
@@ -187,7 +192,7 @@ i {
 #navbarSupportedContent ul li a {
   color: #e0e0e0;
   text-decoration: none;
-  font-size: 14px; /* Smaller font size */
+  font-size: 17px; /* Smaller font size */
   display: flex;
   align-items: center;
   padding: 10px 15px; /* Reduced padding */
@@ -318,5 +323,41 @@ i {
 .navbar {
   margin-bottom: 15px;
   border-bottom: 0px solid;
+}
+
+.logout-button {
+  color: #e0e0e0; /* Match other navbar items */
+  text-decoration: none;
+  padding: 15px 20px; /* Increased padding for larger button */
+  font-size: 16px; /* Increased font size */
+  font-weight: bold; /* Make the text bold for better visibility */
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  position: relative; /* To position the red line */
+}
+
+.logout-button:hover {
+  background-color: #003a70; /* Slightly darker for hover */
+  color: #fff; /* White text on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Red underline for LogOut button */
+.logout-button::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px; /* Slightly taller underline */
+  background-color: red; /* Red color for the underline */
+  position: absolute;
+  bottom: -5px; /* Position it below the text */
+  left: 0;
+  transition: width 0.3s ease;
+  opacity: 0; /* Hidden by default */
+}
+
+.logout-button:hover::after {
+  opacity: 1; /* Show underline on hover */
+  width: 100%; /* Full width on hover */
 }
 </style>

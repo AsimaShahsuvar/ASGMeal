@@ -25,7 +25,7 @@
             :style="getRowStyle(item)"
             @click="openModal(item)"
           >
-            <td>{{ index + 1 }}</td>
+            <td>{{ index + 1 }} </td>
             <td>{{ item.flight }}</td>
             <td>{{ item.route }}</td>
             <td>{{ item.time_a }}</td>
@@ -168,6 +168,12 @@ export default {
       //   Authorization: `Bearer ${responseToken}`,
       // };
 
+
+
+
+
+
+
       try {
         // Fetch flight data
         const flightResponse = await api.get("/v1/flight?date=2024-12-12");
@@ -266,18 +272,20 @@ clearInterval(this.refreshInterval);
 
 
 
-    addSupervisor() {
-      axios
-        .get(
-          "https://apifm.asg.az/api/EmployeeWorkFlow/getemployeelist?shift_id=0"
-        )
-        .then((response) => {
-          this.supervisorData = response.data; // Store the supervisor data
-        })
-        .catch((error) => {
-          console.error("Error fetching supervisor data:", error);
-        });
-    },
+    // addSupervisor() {
+    //   axios
+    //     .get(
+    //       // Yeni api supervisor
+    //       // "http://fdm.asg.az:8080/meals/api/v1/supervisor"    
+    //       "https://apifm.asg.az/api/EmployeeWorkFlow/getemployeelist?shift_id=0"
+    //     )
+    //     .then((response) => {
+    //       this.supervisorData = response.data; // Store the supervisor data
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error fetching supervisor data:", error);
+    //     });
+    // },
 
     openModal(flight) {
       this.selectedFlight = flight;
