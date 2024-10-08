@@ -295,7 +295,7 @@ export default {
       const selectedDateValue = new Date(event.target.value)
       selectedDateValue.setHours(0, 0, 0, 0)
       scheduler.startDate = new Date(today.getTime() - 1 * 60 * 60 * 1000)
-      scheduler.endDate = new Date(today.getTime() +5 * 60 * 60 * 1000)
+      scheduler.endDate = new Date(today.getTime() +7 * 60 * 60 * 1000)
       getFlight()
     }
 
