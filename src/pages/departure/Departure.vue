@@ -75,11 +75,13 @@
         <p><strong>Flight Number:</strong> {{ selectedFlight.flt }}</p>
         <p><strong>Departure:</strong> {{ selectedFlight.dep }}</p>
         <p><strong>Destination:</strong> {{ selectedFlight.dest }}</p>
+        <p><strong>SSR Code:</strong> {{ selectedFlight.ssr_code }}</p>
         <table v-if="passengers.length > 0" class="passenger-table">
           <thead>
             <tr>
               <th>#</th>
               <th>Name</th>
+              <th>SSR</th>
               <th>Meal</th>
             </tr>
           </thead>
@@ -87,7 +89,10 @@
             <tr v-for="(passenger, index) in passengers" :key="index">
               <td>{{ index + 1 }}</td>
               <td>{{ passenger.pax || "N/A" }}</td>
+              <td>{{ passenger.ssr_code || "N/A" }}</td>
               <td>{{ passenger.meal || "N/A" }}</td>
+
+
             </tr>
           </tbody>
         </table>
