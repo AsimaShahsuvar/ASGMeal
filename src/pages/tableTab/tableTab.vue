@@ -10,7 +10,7 @@
             <th>LT</th>
             <th>ETD</th>
             <th>ETA</th>
-            <th>Bort No</th>
+            <th style="width: 100px">Bort No</th>
             <th>Parking</th>
             <th>Supervisor</th>
             <th>Notes</th>
@@ -31,7 +31,7 @@
             <td>{{ item.time_a }}</td>
             <td>{{ item.time_tkf }}</td>
             <td>{{ item.time_bt }}</td>
-            <td>{{ item.ac }}</td>
+            <td>{{ item.ac_reg }}</td>
             <td>{{ item.stand }}</td>
             <td></td>
             <td>{{ item.remark }}</td>
@@ -276,7 +276,7 @@ clearInterval(this.refreshInterval);
     //   axios
     //     .get(
     //       // Yeni api supervisor
-    //       // "http://fdm.asg.az:8080/meals/api/v1/supervisor"    
+    //       // "http://fdm.asg.az:8080/meals/api/v1/supervisor"
     //       "https://apifm.asg.az/api/EmployeeWorkFlow/getemployeelist?shift_id=0"
     //     )
     //     .then((response) => {

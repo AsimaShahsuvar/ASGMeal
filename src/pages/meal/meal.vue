@@ -213,8 +213,8 @@ export default {
       const isWhide = document.getElementById('whide').checked
       const isTra = document.getElementById('tra').checked
       const data = {
-        st_from: new Date(scheduler.startDate.getTime() + 4 * 60 * 60 * 1000).toISOString().split('T')[0],
-        end_to: new Date(scheduler.endDate.getTime() + 4 * 60 * 60 * 1000).toISOString().split('T')[0],
+        st_from: new Date(scheduler.startDate.getTime() + 4 * 60 * 60 * 1000),
+        end_to: new Date(scheduler.endDate.getTime() + 4 * 60 * 60 * 1000),
         terminal: Array.from(document.querySelectorAll('#terminal input:checked')).map(el => parseInt(el.value)),
         isLocal: document.querySelector('#isLocal input[name="action"]:checked').value === '1',
         isInternational: Array.from(document.querySelectorAll('#isInternational input:checked')).map(el => parseInt(el.value)),
@@ -294,8 +294,8 @@ export default {
     const updateStartDate = (event) => {
       const selectedDateValue = new Date(event.target.value)
       selectedDateValue.setHours(0, 0, 0, 0)
-      scheduler.startDate = new Date(today.getTime() - 1 * 60 * 60 * 1000)
-      scheduler.endDate = new Date(today.getTime() +7 * 60 * 60 * 1000)
+      scheduler.startDate = new Date(today.getTime() -2* 60 * 60 * 1000)
+      scheduler.endDate = new Date(today.getTime() + 4* 60 * 60 * 1000)
       getFlight()
     }
 
