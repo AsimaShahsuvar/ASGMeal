@@ -21,6 +21,12 @@ const routes = [
       import(/* webpackChunkName: "Departure" */ "@/pages/departure/Departure.vue"),
   },
   {
+    path: "/departure2",
+    name: "Departure2",
+    component: () =>
+      import(/* webpackChunkName: "Departure" */ "@/pages/departure/Departure2.vue"),
+  },
+  {
     path: "/mealLogin",
     name: "auth",
     component: () =>

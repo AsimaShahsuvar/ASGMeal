@@ -32,9 +32,14 @@
             ><i class="fa fa-plane" aria-hidden="true"></i>Supervisor</a
           >
         </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/departure"-->
+<!--            ><i class="fa fa-plane" aria-hidden="true"></i>Departure</a-->
+<!--          >-->
+<!--        </li>-->
         <li class="nav-item">
-          <a class="nav-link" href="/departure"
-            ><i class="fa fa-plane" aria-hidden="true"></i>Departure</a
+          <a class="nav-link" href="/departure2"
+          ><i class="fa fa-plane" aria-hidden="true"></i>Flights</a
           >
         </li>
       </ul>
