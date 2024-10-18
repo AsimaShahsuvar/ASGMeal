@@ -11,12 +11,7 @@
         </div>
         <div class="col-md-2">
           <div class="terminal" style="font-size: 18px" id="terminal">
-            <fieldset style="display: inline-block">
-              <input class="small-radio" type="radio" name="action" id="t1" value="dep" v-model="selectedRoute" @change="fetchData">
-              <label for="track">DEP</label>
-              <input class="small-radio" type="radio" name="action" id="t2" value="dest" v-model="selectedRoute" @change="fetchData">
-              <label for="event">DEST</label>
-            </fieldset>
+
           </div>
         </div>
         <div class="col-md-1">
@@ -55,101 +50,105 @@
 
     <div class="table-container">
       <table>
-        <!--        <thead>-->
-        <!--          <tr>-->
-        <!--            <th rowspan="2" style="height: 80px; width: 50px"></th>-->
-        <!--            <th rowspan="2">-->
-        <!--              <div class="filter-container">-->
-        <!--                <div class="input-wrapper">-->
-        <!--                  <input-->
-        <!--                    type="text"-->
-        <!--                    v-model="searchQuery"-->
-        <!--                    placeholder="Enter flight name"-->
-        <!--                    class="filter-input"-->
-        <!--                  />-->
-        <!--                  <span class="input-icon">🔍</span>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </th>-->
-        <!--            <th rowspan="2" colspan="3">Cabin</th>-->
-        <!--            <th class="special-service-header" rowspan="2">Special Service</th>-->
-        <!--          </tr>-->
-        <!--        </thead>-->
-
-        <tbody>
+        <thead>
         <tr>
-          <th>
-            #
-          </th>
-          <th>
-            Flight
-          </th>
-          <th>
-            Dest
-          </th>
-          <th>
-            Dep
-          </th>
-          <th>
-            Flt-Time
-          </th>
+          <th>#</th>
+          <th>Depart Flight</th>
+          <th>Dest</th>
+          <th>Dep</th>
+          <th>Flt-Time</th>
           <th @click="openCabinModal('business')">C</th>
           <th @click="openCabinModal('comfort')">W</th>
           <th @click="openCabinModal('economy')">Y</th>
-          <th style="width: 1000px!important;">
-            Special Service
-          </th>
+          <th style="width: 1000px!important;">Special Service</th>
+          <th>Arrive Flight</th>
+          <th>Dest</th>
+          <th>Dep</th>
+          <th>Flt-Time</th>
+          <th @click="openCabinModal('business')">C</th>
+          <th @click="openCabinModal('comfort')">W</th>
+          <th @click="openCabinModal('economy')">Y</th>
+          <th style="width: 1000px!important;">Special Service</th>
         </tr>
-        <tr
-            v-for="(flight, index) in filteredFlights"
-            :key="flight.id"
-            @click="openCabinModal(1,flight)"
-        >
-          <td style="font-size: 24px" class="flight-number">
+        </thead>
+        <tr v-for="(flight, index) in combinedFlights" :key="flight.depFlight ? flight.depFlight.id : index">
+          <td style="font-size: 22px;" class="flight-number">
             <span class="flight-index">{{ index + 1 }}</span>
           </td>
-          <td  class="flight-info">
-             <span style="font-size: 24px" class="flight-info-text">
-                {{flight.flt}}
-             </span>
+          <td class="flight-info">
+    <span style="font-size: 22px" class="flight-info-text">
+      {{ flight.depFlight ? flight.depFlight.flt : '' }} <!-- Dep flight numarası -->
+    </span>
           </td>
           <td class="flight-info">
-             <span style="font-size: 24px" class="flight-info-text">
-                {{flight.dep}}
-             </span>
+    <span style="font-size: 22px" class="flight-info-text">
+      {{ flight.depFlight ? flight.depFlight.dep : '' }} <!-- Dep -->
+    </span>
           </td>
           <td class="flight-info">
-             <span style="font-size: 24px" class="flight-info-text">
-                {{flight.dest}}
-             </span>
-         </td>
+    <span style="font-size: 22px" class="flight-info-text">
+      {{ flight.depFlight ? flight.depFlight.dest : '' }} <!-- Dest -->
+    </span>
+          </td>
           <td class="flight-info">
-            <span style="font-size: 24px" class="flight-info-text">
-             {{ formatFlightDate(flight.fltDt) }}
-            </span>
+    <span style="font-size: 22px" class="flight-info-text">
+      {{ flight.depFlight ? formatFlightDate(flight.depFlight.fltDt) : '' }} <!-- Flt-Time -->
+    </span>
           </td>
-          <td style="font-size: 24px">
-            {{ extractCabin(flight.cabin_business) }}
+          <td style="font-size: 22px">
+            {{ flight.depFlight ? extractCabin(flight.depFlight.cabin_business) : '' }} <!-- Business cabin -->
           </td>
-          <td style="font-size: 24px">
-            {{ extractCabin(flight.cabin_comfort) }}
+          <td style="font-size: 22px">
+            {{ flight.depFlight ? extractCabin(flight.depFlight.cabin_comfort) : '' }} <!-- Comfort cabin -->
           </td>
-          <td style="font-size: 24px">
-            {{ extractCabin(flight.cabin_econom) }}
+          <td style="font-size: 22px">
+            {{ flight.depFlight ? extractCabin(flight.depFlight.cabin_econom) : '' }} <!-- Economy cabin -->
           </td>
-          <td >
-              <span style="font-size: 18px"
-                  v-for="(meal, mealIndex) in getMealArray(flight.meal_service)"
-                  :key="mealIndex"
-                  class="meal-item"
-              >
-                {{ meal }}
-              </span>
+          <td style="border-right:1px solid black ">
+    <span style="font-size: 18px" v-if="flight.depFlight" v-for="(meal, mealIndex) in getMealArray(flight.depFlight.meal_service)" :key="mealIndex" class="meal-item">
+      {{ meal }} <!-- Meal service -->
+    </span>
+          </td>
+
+          <!-- Dest Flight Columns -->
+          <td class="flight-info">
+    <span style="font-size: 22px" class="flight-info-text">
+      {{ flight.destFlight ? flight.destFlight.flt : '' }} <!-- Dest flight numarası -->
+    </span>
+          </td>
+          <td class="flight-info">
+    <span style="font-size: 22px" class="flight-info-text">
+      {{ flight.destFlight ? flight.destFlight.dep : '' }} <!-- Dest dep -->
+    </span>
+          </td>
+          <td class="flight-info">
+    <span style="font-size: 22px" class="flight-info-text">
+      {{ flight.destFlight ? flight.destFlight.dest : '' }} <!-- Dest dest -->
+    </span>
+          </td>
+          <td class="flight-info">
+    <span style="font-size: 22px" class="flight-info-text">
+      {{ flight.destFlight ? formatFlightDate(flight.destFlight.fltDt) : '' }} <!-- Dest Flt-Time -->
+    </span>
+          </td>
+          <td style="font-size: 22px">
+            {{ flight.destFlight ? extractCabin(flight.destFlight.cabin_business) : '' }} <!-- Dest business cabin -->
+          </td>
+          <td style="font-size: 22px">
+            {{ flight.destFlight ? extractCabin(flight.destFlight.cabin_comfort) : '' }} <!-- Dest comfort cabin -->
+          </td>
+          <td style="font-size: 22px">
+            {{ flight.destFlight ? extractCabin(flight.destFlight.cabin_econom) : '' }} <!-- Dest economy cabin -->
+          </td>
+          <td>
+    <span style="font-size: 18px" v-if="flight.destFlight" v-for="(meal, mealIndex) in getMealArray(flight.destFlight.meal_service)" :key="mealIndex" class="meal-item">
+      {{ meal }} <!-- Dest meal service -->
+    </span>
           </td>
         </tr>
+        <tbody>
         </tbody>
-      </table>
-    </div>
+      </table>    </div>
 
     <div v-if="isModalVisible" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>
@@ -209,6 +208,7 @@ export default {
   name: "Departure",
   data() {
     return {
+      combinedFlights:[],
       selectedDate: '',
       selectedRoute: 'dep',
       flights: [],
@@ -270,7 +270,6 @@ export default {
 
 
 
-
   methods: {
     async fetchData() {
       try {
@@ -295,17 +294,76 @@ export default {
         };
 
         const date = this.selectedDate;
-        const route = this.selectedRoute;
-
         const response = await axios.get(
-            `http://fdm.asg.az:8080/meals/api/v1/flight/orders?date=${date}&route=${route}`,
+            `http://fdm.asg.az:8080/meals/api/v1/flight/orders?date=${date}`,
             { headers }
         );
-        this.flights = response.data.data || [];
+
+        let flights = response.data.data || [];
+        const depFlights = flights.filter(flight => flight.dep === 'GYD');
+        const destFlights = flights.filter(flight => flight.dest === 'GYD');
+
+        this.combinedFlights = depFlights.map(depFlight => {
+          // 'depFlight' null dəyərində 'couple' varsa, destFlight boş olacaq
+          if (depFlight.couple === null) {
+            return {
+              depFlight,
+              destFlight: null, // null dəyərini buraya qoyuruq
+            };
+          }
+
+          // Eyni 'couple' dəyərinə malik olan 'destFlight' tap
+          const matchingDestFlight = destFlights.find(destFlight => destFlight.couple === depFlight.couple);
+
+          return {
+            depFlight,
+            destFlight: matchingDestFlight || null, // tapılmadıqda null
+          };
+        }).filter(flight => flight.depFlight !== null || flight.destFlight !== null); // null dəyərləri aradan qaldırmaq üçün filter
+
+// 'destFlights' içərisində 'couple' dəyəri null olanları əlavə et
+        const nullCoupleDestFlights = destFlights
+            .filter(destFlight => destFlight.couple === null)
+            .map(destFlight => ({
+              depFlight: null, // Dep flight null
+              destFlight // Eyni 'destFlight' burada əlavə edilir
+            }));
+
+// İki flightları birləşdirərək yeni list yaradın
+        this.combinedFlights = [...this.combinedFlights, ...nullCoupleDestFlights];
+
+// Ekrana çıxarmaq üçün göstərin (istəyə görə)
+        console.log(this.combinedFlights);
+
       } catch (error) {
         console.error("Error fetching flight data:", error);
       }
     },
+
+
+
+     filteredFlight() {
+      const depFlights = this.flights.filter(flight => flight.dep === 'GYD');
+      const destFlights = this.flights.filter(flight => flight.dep !== 'GYD');
+
+      // Couple-ları qruplaşdır
+      const groupedFlights = [];
+      const coupleMap = {};
+
+      this.flights.forEach(flight => {
+        if (!coupleMap[flight.couple]) {
+          coupleMap[flight.couple] = [];
+        }
+        coupleMap[flight.couple].push(flight);
+      });
+
+      Object.values(coupleMap).forEach(group => {
+        groupedFlights.push(group);
+      });
+
+       return [...gydFlights, ...otherFlights];
+    },
+
     async updateStartDate() {
       await this.fetchData();
     },
@@ -406,7 +464,7 @@ export default {
       this.isModalVisible = true;
 
       try {
-        const responseToken = localStorage.getItem("token");
+        const responseresponseToken = localStorage.getItem("token");
         const headers = { Authorization: `Bearer ${responseToken}` };
 
         // Fetching passengers for the specific cabin in the selected flight
